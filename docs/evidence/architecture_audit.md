@@ -1,6 +1,6 @@
 # AgentX Risk Validator -- Architecture Audit
 Audit date: 2026-05-19
-Last updated: 2026-05-20 (Phase 5B.8 -- local MLflow tracking added)
+Last updated: 2026-05-20 (Phase 5B.9 -- portable audit pack added; all 15 gaps closed)
 
 ---
 
@@ -144,9 +144,11 @@ Critical issue: the scaler is fit on the uploaded data but not saved alongside t
 
 4. **Empty stub files:** RESOLVED (Phase 5B.3). shap_explainer.py, model_metrics.py, and frontend/app_ui.py deleted.
 
-5. **No test suite:** RESOLVED (Phase 5B.4 + 5B.5 + 5B.6B + 5B.6C + 5B.8). 237 passing pytest tests.
+5. **No test suite:** RESOLVED (Phase 5B.4 + 5B.5 + 5B.6B + 5B.6C + 5B.8 + 5B.9). 268 passing pytest tests.
 
 6. **No MLflow tracking:** RESOLVED (Phase 5B.8). utils/mlflow_tracking.py wired into pipeline as Step 13. See Section 15.
+
+7. **PDF system dependency (GAP-014):** RESOLVED (Phase 5B.9). utils/audit_pack.py generates MD, HTML, PDF using markdown2 and fpdf2 (pure Python, no system binary). See Section 16.
 
 ---
 
@@ -257,3 +259,27 @@ Bare Windows path strings are rejected by MLflow's tracking URI parser.
 
 The MLflow tracking layer is local development tooling only. No remote server,
 no model registry, no artifact store, no production MLflow deployment.
+
+---
+
+## 16. Local Audit Pack Layer (Phase 5B.9)
+
+| Component | File | Role |
+|---|---|---|
+| Audit pack utility | utils/audit_pack.py | collect_audit_pack_context, render_audit_markdown, write_audit_html, write_audit_pdf, generate_audit_pack |
+| Audit pack paths | utils/config.py | AUDIT_PACK_DIR, AUDIT_PACK_MD_PATH, AUDIT_PACK_HTML_PATH, AUDIT_PACK_PDF_PATH, AUDIT_PACK_JSON_PATH |
+| Pipeline integration | main.py | Step 14: wrapped in try/except; failure does not stop pipeline |
+| API integration | api/service.py | audit_pack_available() lazy check |
+| API schema | api/schemas.py | EvidenceResponse.audit_pack_available field |
+| API route | api/main.py | GET /evidence returns audit_pack_available |
+| Output directory | reports/audit_pack/ | Excluded from git; local-only outputs |
+| Tests | tests/test_audit_pack.py | 31 tests; all use tmp_path + monkeypatch for isolation |
+
+Audit pack includes: verified metrics, dataset summary, drift status, compliance summary,
+governance run ID, benchmark summary, MLflow status, limitations, claim-safety note.
+
+HTML uses markdown2. PDF uses fpdf2 (pure Python, no system binary). No pdfkit or
+wkhtmltopdf dependency. GAP-014 (PDF system dependency) is resolved.
+
+The audit pack is local development evidence. It is not a regulatory audit record
+and does not constitute regulatory approval.

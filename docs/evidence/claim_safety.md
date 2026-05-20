@@ -1,5 +1,5 @@
 # AgentX Risk Validator -- Claim Safety Assessment
-Last updated: 2026-05-20 (Phase 5B.8)
+Last updated: 2026-05-20 (Phase 5B.9)
 
 This document defines what can be stated truthfully about AgentX, and what must not be claimed until specific evidence exists.
 
@@ -44,7 +44,9 @@ The model pipeline inconsistency (GAP-004) has been resolved. Verified metrics a
 - "AgentX writes a structured governance validation-run record on each pipeline run, including run ID, metrics snapshot, drift status, compliance status, artifact status, risk flags, and claim-safety note."
 - "Governance records are accessible via GET /governance/latest and GET /governance/history API endpoints."
 - "The governance layer is a local development evidence tool. It is not a regulatory audit system or enterprise governance platform."
-- "237 pytest tests passing as of Phase 5B.8 (212 prior + 25 new MLflow tracking tests)."
+- "268 pytest tests passing as of Phase 5B.9 (237 prior + 31 new audit pack tests)."
+- "Each pipeline run generates a local audit pack in Markdown, HTML, and PDF formats using fpdf2 (pure Python, no system binary required)."
+- "The audit pack is a local development evidence document. It is not a regulatory audit record and does not constitute regulatory approval."
 - "The compliance agent is now grounded in local validation evidence. The LLM prompt and fallback advisory cite actual ROC-AUC (0.6776), recall (0.037), class balance, drift status, and governance run ID."
 - "Compliance advisory output includes advisory_only: True and not_regulatory_approval: True fields in the saved JSON record."
 - "Each AgentX pipeline run logs verified metrics, validation parameters, and evidence artifacts to a local MLflow file store (mlruns/). Experiment: agentx_risk_validation."
@@ -102,6 +104,7 @@ The low recall and F1 are expected for a non-weighted logistic regression on an 
 | "173 passing pytest tests" | UNLOCKED (Phase 5B.6B): governance utility and API endpoint tests added |
 | "Model-specific compliance assessment" | UNLOCKED (Phase 5B.6C): compliance prompt grounded in actual model metrics |
 | "Local MLflow validation tracking" | UNLOCKED (Phase 5B.8): local file-based MLflow tracking wired into pipeline |
+| "Portable PDF audit pack" | UNLOCKED (Phase 5B.9): audit pack (MD, HTML, PDF) generated via fpdf2/markdown2, no system binary |
 
 ---
 

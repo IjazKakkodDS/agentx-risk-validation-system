@@ -1,6 +1,6 @@
 # AgentX Risk Validator -- System Inventory
 Audit date: 2026-05-19
-Last updated: 2026-05-20 (Phase 5B.8 complete)
+Last updated: 2026-05-20 (Phase 5B.9 complete -- all 15 engineering gaps closed)
 Auditor: Phase 5A/5B Engineering Readiness Audit
 
 ---
@@ -60,6 +60,7 @@ Auditor: Phase 5A/5B Engineering Readiness Audit
 | governance.py | Validation-run record assembly, write, load, list functions | Present -- added Phase 5B.6B |
 | compliance_context.py | Evidence context builder: load local artifacts, assemble structured context dict, format for LLM prompt | Present -- added Phase 5B.6C |
 | mlflow_tracking.py | Local MLflow file tracking: configure experiment, log metrics/params/artifacts, safe artifact filtering, graceful failure | Present -- added Phase 5B.8 |
+| audit_pack.py | Local audit pack generation: collect context, render MD/HTML/PDF using fpdf2 and markdown2, graceful failure per format | Present -- added Phase 5B.9 |
 | __init__.py | Package marker | Present |
 
 Deleted in Phase 5B.3 (dead code):
@@ -130,7 +131,7 @@ Deleted in Phase 5B.3 (dead code):
 
 | Item | Status |
 |---|---|
-| Test suite (pytest/unittest) | PRESENT -- 237 fast tests passing (Phase 5B.8) |
+| Test suite (pytest/unittest) | PRESENT -- 268 fast tests passing (Phase 5B.9) |
 | tests/conftest.py | Present -- session-scoped fixtures |
 | tests/test_config.py | Present -- 10 tests |
 | tests/test_data_pipeline.py | Present -- 11 tests |
@@ -143,6 +144,7 @@ Deleted in Phase 5B.3 (dead code):
 | tests/test_governance.py | Present -- ~60 governance utility tests (Phase 5B.6B) |
 | tests/test_compliance_context.py | Present -- ~39 compliance context tests (Phase 5B.6C) |
 | tests/test_mlflow_tracking.py | Present -- 25 MLflow tracking tests (Phase 5B.8) |
+| tests/test_audit_pack.py | Present -- 31 audit pack tests (Phase 5B.9) |
 | pytest.ini | Present |
 
 ---
@@ -171,6 +173,7 @@ Benchmark evidence files:
 | FastAPI implementation | PRESENT -- api/ package, 6 endpoints (Phase 5B.5 + 5B.6B) |
 | Governance evidence layer | PRESENT -- utils/governance.py, data/governance/ (Phase 5B.6B) |
 | Local MLflow tracking | PRESENT -- utils/mlflow_tracking.py, mlruns/ (Phase 5B.8) |
+| Local audit pack | PRESENT -- utils/audit_pack.py, reports/audit_pack/ (Phase 5B.9) |
 | .gitignore | PRESENT -- added Phase 5B.1, updated through Phase 5B.8 |
 | .dockerignore | PRESENT -- added Phase 5B.5 |
 | Config management module | PRESENT -- utils/config.py (Phase 5B.3) |

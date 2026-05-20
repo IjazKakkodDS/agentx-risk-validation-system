@@ -1,7 +1,7 @@
 # AgentX Risk Validator -- Portfolio Positioning Draft
-Last updated: 2026-05-20 (Phase 5B.8)
-Status: DRAFT -- AgentX engineering waves 1 through 6 are all complete. Git initialized. First commit made.
-Waves 1, 2, 3, 4, 5, and 6 are complete. Local MLflow tracking added in Phase 5B.8.
+Last updated: 2026-05-20 (Phase 5B.9)
+Status: DRAFT -- All 15 engineering gaps closed. 268 tests passing. Portable audit pack added.
+Waves 1, 2, 3, 4, 5, and 6 are complete. All P1/P2/P3 gaps resolved.
 
 ---
 
@@ -196,5 +196,6 @@ AgentX is becoming portfolio-ready after each of the following engineering waves
 | Wave 6 benchmark (6A) -- DONE | "Measured local performance evidence: benchmark_results.json and benchmark_report.md" |
 | Wave 6 governance evidence (6B) -- DONE | "Local governance evidence layer: run record per pipeline run; GET /governance endpoints" |
 | Wave 6 compliance grounding (6C) -- DONE | "Evidence-grounded compliance advisory; 212 passing tests" |
-| Wave 6 MLflow (5B.8) -- DONE | "Local MLflow-tracked validation runs; 237 passing tests; all 15 gaps closed" |
+| Wave 6 MLflow (5B.8) -- DONE | "Local MLflow-tracked validation runs; 237 passing tests" |
+| Wave 6 Audit pack (5B.9) -- DONE | "Portable audit pack (MD/HTML/PDF via fpdf2+markdown2); 268 passing tests; all 15 gaps closed" |
 | Portfolio summary doc | Elite-tier portfolio case study ready for public sharing after owner review |

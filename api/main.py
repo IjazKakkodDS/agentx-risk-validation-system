@@ -25,6 +25,7 @@ from api.schemas import (
     ValidationRunResponse,
 )
 from api.service import (
+    audit_pack_available,
     governance_available,
     list_evidence_files,
     list_generated_artifacts,
@@ -125,6 +126,7 @@ def evidence():
         generated_artifacts=generated_artifacts,
         governance_available=governance_available(),
         mlflow_tracking_available=mlflow_tracking_available(),
+        audit_pack_available=audit_pack_available(),
     )
 
 

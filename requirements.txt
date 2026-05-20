@@ -31,6 +31,7 @@ plotly>=5.18.0
 # ===== PDF & Report Generation =====
 fpdf2>=1.7.6
 python-docx>=0.8.11
+markdown2>=2.4.0
 
 # ===== Compliance Agent (LLM/RAG) =====
 groq==0.5.0

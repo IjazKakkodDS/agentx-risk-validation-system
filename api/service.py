@@ -98,6 +98,12 @@ def mlflow_tracking_available() -> bool:
     return _check()
 
 
+def audit_pack_available() -> bool:
+    """Return True if the audit pack Markdown has been generated."""
+    from utils.config import AUDIT_PACK_MD_PATH
+    return AUDIT_PACK_MD_PATH.exists()
+
+
 def run_validation_pipeline(request) -> Dict[str, Any]:
     """
     Invoke run_agentx_pipeline() from main.py with flags from the API request.

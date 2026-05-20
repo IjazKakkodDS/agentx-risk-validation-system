@@ -1,6 +1,6 @@
 # AgentX Risk Validator -- L2 Engineering Upgrade Plan
 Audit date: 2026-05-19
-Last updated: 2026-05-20 (Phase 5B.8 complete)
+Last updated: 2026-05-20 (Phase 5B.9 complete -- all 15 engineering gaps closed)
 Scope: Phase 5B recommended engineering upgrades
 
 ---
@@ -197,6 +197,36 @@ Full details in `docs/evidence/api_boundary_report.md`.
 ### U6.1 -- Ground compliance in model outputs
 Modify compliance_agent to receive actual metrics dict and pass it as context to the Groq prompt. Reference SR11-7 and Basel docs via RAG using the existing FAISS infrastructure.
 
+### U6.6 -- Portable audit pack generation [DONE -- Phase 5B.9]
+
+Created `utils/audit_pack.py`:
+- `collect_audit_pack_context()`: reads verified_metrics.json, drift_report.json, governance record, compliance record, benchmark_results.json, MLflow status; returns clean context dict with no secrets
+- `render_audit_markdown(context)`: builds full Markdown audit pack string
+- `write_audit_markdown(context)`: writes Markdown to reports/audit_pack/audit_pack.md
+- `write_audit_html(markdown_text)`: uses markdown2 to generate HTML; writes to reports/audit_pack/audit_pack.html
+- `write_audit_pdf(context)`: uses fpdf2 (pure Python, no system binary) to generate PDF; returns status dict; never raises
+- `generate_audit_pack()`: orchestrates all steps; returns summary dict; never raises
+
+No pdfkit or wkhtmltopdf dependency. Both markdown2 and fpdf2 are already in requirements.txt.
+
+Added `markdown2>=2.4.0` to requirements.txt (was used in generate_pdf.py but not listed).
+
+Added `AUDIT_PACK_DIR`, `AUDIT_PACK_MD_PATH`, `AUDIT_PACK_HTML_PATH`, `AUDIT_PACK_PDF_PATH`, `AUDIT_PACK_JSON_PATH` to utils/config.py.
+
+Added Step 14 to `run_agentx_pipeline()` in main.py (wrapped in try/except).
+
+API: `GET /evidence` now returns `audit_pack_available` field.
+
+`reports/audit_pack/` added to .gitignore.
+
+Tests: 31 new tests in `tests/test_audit_pack.py`. All isolated via tmp_path and monkeypatch.
+Total test suite after Phase 5B.9: 268 passing.
+
+Verified first run: MD, HTML, and PDF all generated successfully. ROC-AUC 0.6776 confirmed.
+
+GAP-014 (PDF system dependency) is now CLOSED.
+Full documentation: docs/evidence/audit_pack_report.md
+
 ### U6.2 -- MLflow integration [DONE -- Phase 5B.8]
 
 Created `utils/mlflow_tracking.py` with full local tracking utility:
@@ -343,4 +373,4 @@ Full documentation: docs/evidence/compliance_grounding_report.md
 | Wave 3 | COMPLETE (Phase 5B.3) | Delete stubs, consolidate duplicates, config.py, structured logging | Engineering maturity claim |
 | Wave 4 | COMPLETE (Phase 5B.4) | 85 pytest tests: config, data, model, agents, artifacts, smoke | Quality and reliability claim |
 | Wave 5 | COMPLETE (Phase 5B.5) | Dockerfile, .dockerignore, FastAPI boundary (GET /health, GET /metrics, GET /evidence, POST /validate), 26 API tests, main.py refactor | Deployment and API claim |
-| Wave 6 | COMPLETE (Phase 5B.8) | Benchmark script (6A); local governance evidence layer + /governance API (6B); compliance grounding (6C); evidence consolidation (6D); git init + first commit (5B.7); local MLflow tracking (5B.8) | Benchmark, governance, compliance grounding, MLflow tracking claims all unlocked |
+| Wave 6 | COMPLETE (Phase 5B.9) | Benchmark script (6A); local governance evidence layer + /governance API (6B); compliance grounding (6C); evidence consolidation (6D); git init + first commit (5B.7); local MLflow tracking (5B.8); portable audit pack (5B.9) | All 15 engineering gaps closed; 268 tests passing |

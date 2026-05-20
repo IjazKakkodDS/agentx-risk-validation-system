@@ -259,6 +259,25 @@ def run_agentx_pipeline(
         logger.warning("MLflow tracking did not complete (pipeline not affected): %s", exc)
         warnings.append(f"MLflow tracking skipped: {exc}")
 
+    # Step 14 -- local audit pack generation (optional; failure does not stop pipeline)
+    try:
+        from utils.audit_pack import generate_audit_pack
+        logger.info("Generating local audit pack...")
+        audit_result = generate_audit_pack()
+        logger.info(
+            "Audit pack generated: md=%s html=%s pdf=%s",
+            audit_result.get("markdown_path", "n/a"),
+            audit_result.get("html_path", "n/a"),
+            audit_result.get("pdf_status", "n/a"),
+        )
+        if audit_result.get("markdown_path"):
+            artifacts.append(audit_result["markdown_path"])
+        for w in audit_result.get("warnings", []):
+            warnings.append(f"Audit pack: {w}")
+    except Exception as exc:
+        logger.warning("Audit pack generation did not complete (pipeline not affected): %s", exc)
+        warnings.append(f"Audit pack skipped: {exc}")
+
     logger.info("AgentX pipeline complete.")
 
     return {

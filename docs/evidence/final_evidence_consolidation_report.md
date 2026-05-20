@@ -1,9 +1,9 @@
 # AgentX Risk Validator -- Final Evidence Consolidation Report
 
 **System:** AgentX Risk Validator v1.0.0
-**Phase:** 5B.8
+**Phase:** 5B.9
 **Date:** 2026-05-20
-**Status:** All engineering waves complete. Git initialized. Local MLflow tracking added.
+**Status:** All 15 engineering gaps closed. 268 tests passing. Portable audit pack added.
 
 ---
 
@@ -22,6 +22,7 @@
 | Wave 6D: Evidence consolidation | 5B.6D | COMPLETE | This report, portfolio_summary.md, git_readiness_check.md, .pytest_cache/ added to .gitignore |
 | Wave 6E: Git initialization | 5B.7 | COMPLETE | git init, first commit (37bbb68), .gitattributes, mlruns/ in .gitignore |
 | Wave 6F: Local MLflow tracking | 5B.8 | COMPLETE | utils/mlflow_tracking.py, Step 13 in main.py, 25 tests, GET /evidence mlflow_tracking_available |
+| Wave 6G: Portable audit pack | 5B.9 | COMPLETE | utils/audit_pack.py, Step 14 in main.py, 31 tests, MD/HTML/PDF via fpdf2+markdown2, GAP-014 closed |
 
 ---
 
@@ -70,7 +71,8 @@ Supporting infrastructure: utils/config.py (path management), utils/logging_util
 | test_governance.py | ~60 | All governance utility functions, write/load round-trips |
 | test_compliance_context.py | ~39 | All context builder functions, constants, no-secrets checks |
 | test_mlflow_tracking.py | 25 | MLflow tracking utility, configure, log, artifacts, summary (Phase 5B.8) |
-| **Total (fast)** | **237** | **0 failures** |
+| test_audit_pack.py | 31 | Audit pack context, MD/HTML/PDF generation, no-secrets, graceful degradation (Phase 5B.9) |
+| **Total (fast)** | **268** | **0 failures** |
 
 ---
 
@@ -187,6 +189,7 @@ As of Phase 5B.6C, the ComplianceAgent grounding is verified:
 | docs/evidence/portfolio_positioning_draft.md | 9.4 KB | ongoing |
 | docs/evidence/engineering_gap_report.md | 9.8 KB | ongoing |
 | docs/evidence/mlflow_tracking_report.md | ~6 KB | 5B.8 |
+| docs/evidence/audit_pack_report.md | ~5 KB | 5B.9 |
 
 ---
 
@@ -209,8 +212,7 @@ Phase 5B.6D scan results:
 | GAP-014: PDF generation system dependency | P3 | Open -- pdfkit uses hardcoded Windows path; Streamlit FPDF works |
 | Class-weighted or XGBoost model variants | P3 | Open -- planned product module |
 
-All P1, P2, and all other P3 gaps are resolved. Only GAP-014 (PDF system dependency) remains open.
-GAP-001 (no git) is closed (Phase 5B.7). GAP-015 (no MLflow) is closed (Phase 5B.8).
+All 15 engineering gaps are resolved. GAP-014 (PDF system dependency) closed in Phase 5B.9 via portable fpdf2/markdown2 audit pack. No open gaps remain.
 
 ---
 

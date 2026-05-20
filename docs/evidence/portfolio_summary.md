@@ -2,7 +2,7 @@
 
 **Status:** DRAFT -- for future portfolio website use.
 **Date:** 2026-05-20
-**Version:** Phase 5B.8
+**Version:** Phase 5B.9
 **Note:** This document is written for eventual public portfolio use. All claims are
 grounded in verified local evidence. Do not publish until git is initialized and
 reviewed by the owner.
@@ -42,6 +42,7 @@ not regulatory approved, and not enterprise deployed.
 | Feature drift detection | scipy KS test | Per-feature p-values, drift flag, drifted feature list |
 | Governance evidence layer | JSON file store + FastAPI | Structured validation-run records with metrics, risk flags, artifact inventory |
 | Local MLflow tracking | MLflow file store (mlruns/) | Per-run experiment logging: 5 metrics, 8 params, 8 evidence artifacts |
+| Local audit pack | fpdf2 + markdown2 (pure Python) | Per-run MD/HTML/PDF audit pack with metrics, drift, compliance, governance, MLflow, limitations |
 | Interactive dashboard | Streamlit | 8-page validation UI with upload, charts, SHAP, compliance, PDF export |
 | FastAPI local boundary | FastAPI + uvicorn | 6 REST endpoints for programmatic validation access |
 | Docker packaging | python:3.11-slim | Reproducible local container deployment |
@@ -52,7 +53,7 @@ not regulatory approved, and not enterprise deployed.
 
 | Evidence | Status |
 |---|---|
-| 237 pytest tests passing (fast suite, 0 failures) | Verified 2026-05-20 (Phase 5B.8) |
+| 268 pytest tests passing (fast suite, 0 failures) | Verified 2026-05-20 (Phase 5B.9) |
 | ROC-AUC 0.6776 locked as regression guard | Verified 2026-05-20 |
 | Benchmark script with machine-readable JSON output | benchmark_results.json 2026-05-20 |
 | Docker build succeeded (sha256: 858fbcfe) | Verified 2026-05-20 |
@@ -96,8 +97,8 @@ Split: 80/20 stratified, random_state=42, scaler fit on train only.
 
 ## Test Evidence
 
-- **237 fast pytest tests passing** as of Phase 5B.8
-- Test files: test_config, test_data_pipeline, test_model_pipeline, test_agents, test_artifacts, test_api, test_benchmark_script, test_governance, test_compliance_context, test_mlflow_tracking
+- **268 fast pytest tests passing** as of Phase 5B.9
+- Test files: test_config, test_data_pipeline, test_model_pipeline, test_agents, test_artifacts, test_api, test_benchmark_script, test_governance, test_compliance_context, test_mlflow_tracking, test_audit_pack
 - ROC-AUC 0.6776 locked as a numerical regression guard in test_api.py and test_governance.py
 - All governance write/load tests isolated to tmp_path via monkeypatch
 - Compliance tests include no-secrets assertions (GROQ_API_KEY not in output)
@@ -168,8 +169,13 @@ run ID. The fallback path uses the same evidence values."
 5 metrics, 8 parameters, and 8 evidence artifacts logged per run. Tracking failure is caught
 and does not stop the pipeline."
 
-"237 pytest tests passing. No em dashes. No banned claims. Claim-safety document
-maintained throughout development."
+"Added portable audit pack generation (MD, HTML, PDF) using fpdf2 and markdown2. No system
+binary required. Each pipeline run writes the audit pack to reports/audit_pack/. Audit pack
+includes verified metrics, drift status, compliance summary, governance run ID, benchmark
+summary, and MLflow tracking status."
+
+"268 pytest tests passing. No em dashes. No banned claims. Claim-safety document
+maintained throughout development. All 15 engineering gaps closed."
 
 ---
 
@@ -198,6 +204,7 @@ maintained throughout development."
 | Governance Run Records | docs/evidence/governance_evidence_report.md |
 | Grounded Compliance Review | docs/evidence/compliance_grounding_report.md |
 | Local MLflow Tracking | docs/evidence/mlflow_tracking_report.md |
+| Portable PDF Audit Pack | docs/evidence/audit_pack_report.md |
 | ROC-AUC 0.6776 | docs/evidence/verified_metrics.md |
 | Local API Benchmarked | docs/evidence/benchmark_report.md |
 | Claim-Safe Evidence | docs/evidence/claim_safety.md |

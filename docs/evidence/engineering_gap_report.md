@@ -1,5 +1,5 @@
 # AgentX Risk Validator -- Engineering Gap Report
-Audit date: 2026-05-19
+Audit date: 2026-05-19 (last updated: 2026-05-20 Phase 5B.9)
 Priority: P1 = must fix before portfolio claim, P2 = needed for elite maturity, P3 = enhancement
 
 ---
@@ -114,11 +114,11 @@ Priority: P1 = must fix before portfolio claim, P2 = needed for elite maturity, 
 
 ---
 
-## GAP-014 [P3] -- PDF generation requires system dependency
+## GAP-014 [P3] -- PDF generation requires system dependency [CLOSED -- Phase 5B.9]
 
 **Observed:** `generate_pdf.py` uses pdfkit and wkhtmltopdf with a hardcoded Windows path. The Streamlit PDF (FPDF) does not have this problem.
 **Impact:** generate_pdf.py fails on any system without wkhtmltopdf installed at that exact path.
-**Fix:** Standardize on FPDF2 for PDF generation (already used in Streamlit). Remove pdfkit and the wkhtmltopdf dependency from the standalone script.
+**Resolution (Phase 5B.9):** `utils/audit_pack.py` created with pure-Python audit pack generation using `markdown2` (HTML) and `fpdf2` (PDF). No system binary required. `generate_pdf.py` is retained as a legacy standalone script but is not called by the pipeline. Step 14 in `run_agentx_pipeline()` generates the audit pack on every pipeline run. `reports/audit_pack/` excluded from git. 31 new tests in `tests/test_audit_pack.py`. Total test suite: 268 passing.
 
 ---
 
@@ -147,5 +147,5 @@ Priority: P1 = must fix before portfolio claim, P2 = needed for elite maturity, 
 | GAP-011 No config management | P2 | Maintainability | CLOSED (Phase 5B.3 -- utils/config.py) |
 | GAP-012 No logging framework | P2 | Observability | CLOSED (Phase 5B.3 -- utils/logging_utils.py) |
 | GAP-013 No benchmark script | P3 | Evidence | CLOSED (Phase 5B.6A) |
-| GAP-014 PDF system dependency | P3 | Portability | Open |
+| GAP-014 PDF system dependency | P3 | Portability | CLOSED (Phase 5B.9 -- fpdf2/markdown2 audit pack) |
 | GAP-015 No model versioning | P3 | Governance | CLOSED (Phase 5B.8 -- local MLflow tracking) |

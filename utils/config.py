@@ -65,3 +65,10 @@ GROQ_DEFAULT_MODEL: str = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 MLFLOW_TRACKING_DIR: Path = PROJECT_ROOT / "mlruns"
 MLFLOW_ARTIFACTS_DIR: Path = PROJECT_ROOT / "mlartifacts"
 MLFLOW_EXPERIMENT_NAME: str = "agentx_risk_validation"
+
+# Audit pack output paths (reports/audit_pack/ -- excluded from git)
+AUDIT_PACK_DIR: Path = REPORTS_DIR / "audit_pack"
+AUDIT_PACK_MD_PATH: Path = AUDIT_PACK_DIR / "audit_pack.md"
+AUDIT_PACK_HTML_PATH: Path = AUDIT_PACK_DIR / "audit_pack.html"
+AUDIT_PACK_PDF_PATH: Path = AUDIT_PACK_DIR / "audit_pack.pdf"
+AUDIT_PACK_JSON_PATH: Path = AUDIT_PACK_DIR / "audit_pack_context.json"

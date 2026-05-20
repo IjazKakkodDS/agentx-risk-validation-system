@@ -73,6 +73,7 @@ class EvidenceResponse(BaseModel):
     generated_artifacts: List[ArtifactStatus]
     governance_available: bool = False
     mlflow_tracking_available: bool = False
+    audit_pack_available: bool = False
     claim_safety_note: str = CLAIM_SAFETY_NOTE
 
 

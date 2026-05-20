@@ -46,6 +46,7 @@ data/governance/
 reports/*.pdf
 reports/*.html
 reports/*.md
+reports/audit_pack/
 
 # === OS artifacts ===
 .DS_Store

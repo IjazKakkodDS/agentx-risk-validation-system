@@ -1,5 +1,5 @@
 # AgentX Risk Validator -- Claim Safety Assessment
-Last updated: 2026-05-20 (Phase 5B.6C)
+Last updated: 2026-05-20 (Phase 5B.8)
 
 This document defines what can be stated truthfully about AgentX, and what must not be claimed until specific evidence exists.
 
@@ -44,9 +44,13 @@ The model pipeline inconsistency (GAP-004) has been resolved. Verified metrics a
 - "AgentX writes a structured governance validation-run record on each pipeline run, including run ID, metrics snapshot, drift status, compliance status, artifact status, risk flags, and claim-safety note."
 - "Governance records are accessible via GET /governance/latest and GET /governance/history API endpoints."
 - "The governance layer is a local development evidence tool. It is not a regulatory audit system or enterprise governance platform."
-- "212 pytest tests passing as of Phase 5B.6C (173 prior + ~39 compliance context tests + 4 new compliance agent tests)."
+- "237 pytest tests passing as of Phase 5B.8 (212 prior + 25 new MLflow tracking tests)."
 - "The compliance agent is now grounded in local validation evidence. The LLM prompt and fallback advisory cite actual ROC-AUC (0.6776), recall (0.037), class balance, drift status, and governance run ID."
 - "Compliance advisory output includes advisory_only: True and not_regulatory_approval: True fields in the saved JSON record."
+- "Each AgentX pipeline run logs verified metrics, validation parameters, and evidence artifacts to a local MLflow file store (mlruns/). Experiment: agentx_risk_validation."
+- "MLflow tracking is local development only. No remote server, no model registry, no production MLflow deployment."
+- "MLflow tracking failure does not affect pipeline execution. It is wrapped in a try/except block and appended to warnings if it fails."
+- "The git repository was initialized in Phase 5B.7. First commit: 37bbb68."
 
 **About the dataset:**
 - "The system was developed using the LendingClub public loan dataset, filtered to binary classification: Fully Paid vs Charged Off."
@@ -96,8 +100,8 @@ The low recall and F1 are expected for a non-weighted logistic regression on an 
 | "Measured local performance" | UNLOCKED (Phase 5B.6A): benchmark_results.json with endpoint and pipeline latencies |
 | "Local governance evidence layer" | UNLOCKED (Phase 5B.6B): validation-run record per pipeline run; GET /governance/latest and GET /governance/history API endpoints |
 | "173 passing pytest tests" | UNLOCKED (Phase 5B.6B): governance utility and API endpoint tests added |
-| "Model-specific compliance assessment" | Future: compliance prompt uses actual model metrics as context |
-| "MLflow model governance tracking" | Future: MLflow logging wired into training |
+| "Model-specific compliance assessment" | UNLOCKED (Phase 5B.6C): compliance prompt grounded in actual model metrics |
+| "Local MLflow validation tracking" | UNLOCKED (Phase 5B.8): local file-based MLflow tracking wired into pipeline |
 
 ---
 

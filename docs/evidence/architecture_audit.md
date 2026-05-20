@@ -1,6 +1,6 @@
 # AgentX Risk Validator -- Architecture Audit
 Audit date: 2026-05-19
-Last updated: 2026-05-20 (Phase 5B.6C -- compliance grounding added)
+Last updated: 2026-05-20 (Phase 5B.8 -- local MLflow tracking added)
 
 ---
 
@@ -144,7 +144,9 @@ Critical issue: the scaler is fit on the uploaded data but not saved alongside t
 
 4. **Empty stub files:** RESOLVED (Phase 5B.3). shap_explainer.py, model_metrics.py, and frontend/app_ui.py deleted.
 
-5. **No test suite:** RESOLVED (Phase 5B.4 + 5B.5 + 5B.6B + 5B.6C). 212 passing pytest tests.
+5. **No test suite:** RESOLVED (Phase 5B.4 + 5B.5 + 5B.6B + 5B.6C + 5B.8). 237 passing pytest tests.
+
+6. **No MLflow tracking:** RESOLVED (Phase 5B.8). utils/mlflow_tracking.py wired into pipeline as Step 13. See Section 15.
 
 ---
 
@@ -227,3 +229,31 @@ Verified output (2026-05-20):
 
 The compliance grounding layer is advisory evidence tooling. It does not constitute
 regulatory approval, certification, or a production compliance determination.
+
+---
+
+## 15. Local MLflow Tracking Layer (Phase 5B.8)
+
+| Component | File | Role |
+|---|---|---|
+| Tracking utility | utils/mlflow_tracking.py | configure_mlflow, log_model_metrics, log_validation_params, log_agentx_artifacts, run_mlflow_tracking_summary, mlflow_tracking_available |
+| MLflow paths | utils/config.py | MLFLOW_TRACKING_DIR, MLFLOW_ARTIFACTS_DIR, MLFLOW_EXPERIMENT_NAME |
+| Pipeline integration | main.py | Step 13: wrapped in try/except; failure does not stop pipeline |
+| API integration | api/service.py | mlflow_tracking_available() lazy import |
+| API schema | api/schemas.py | EvidenceResponse.mlflow_tracking_available field |
+| API route | api/main.py | GET /evidence returns mlflow_tracking_available |
+| Local run store | mlruns/ | Excluded from git; local-only file store |
+| Tests | tests/test_mlflow_tracking.py | 25 tests; all use tmp_path + monkeypatch for isolation |
+
+Verified first run (2026-05-20):
+- Experiment: agentx_risk_validation
+- Run ID: 96bb66e40b5242bca667ef38ab39aba0
+- Metrics: roc_auc=0.6776, accuracy=0.804, precision=0.35, recall=0.037, f1_score=0.067
+- Params: 8 (dataset_rows, feature_count, model_type, target, class_balance, test_size, random_state, validation_run_id)
+- Artifacts: 8 evidence files logged
+
+Tracking URI uses `Path.as_uri()` to produce `file:///C:/...` format required on Windows.
+Bare Windows path strings are rejected by MLflow's tracking URI parser.
+
+The MLflow tracking layer is local development tooling only. No remote server,
+no model registry, no artifact store, no production MLflow deployment.

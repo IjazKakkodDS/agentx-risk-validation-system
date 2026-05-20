@@ -2,7 +2,7 @@
 
 **Status:** DRAFT -- for future portfolio website use.
 **Date:** 2026-05-20
-**Version:** Phase 5B.6D
+**Version:** Phase 5B.8
 **Note:** This document is written for eventual public portfolio use. All claims are
 grounded in verified local evidence. Do not publish until git is initialized and
 reviewed by the owner.
@@ -41,6 +41,7 @@ not regulatory approved, and not enterprise deployed.
 | Compliance advisory review | Groq LLM (llama-3.3-70b-versatile) + local evidence context | Advisory checklist referencing SR 11-7 and Basel principles |
 | Feature drift detection | scipy KS test | Per-feature p-values, drift flag, drifted feature list |
 | Governance evidence layer | JSON file store + FastAPI | Structured validation-run records with metrics, risk flags, artifact inventory |
+| Local MLflow tracking | MLflow file store (mlruns/) | Per-run experiment logging: 5 metrics, 8 params, 8 evidence artifacts |
 | Interactive dashboard | Streamlit | 8-page validation UI with upload, charts, SHAP, compliance, PDF export |
 | FastAPI local boundary | FastAPI + uvicorn | 6 REST endpoints for programmatic validation access |
 | Docker packaging | python:3.11-slim | Reproducible local container deployment |
@@ -51,7 +52,7 @@ not regulatory approved, and not enterprise deployed.
 
 | Evidence | Status |
 |---|---|
-| 212 pytest tests passing (fast suite, 0 failures) | Verified 2026-05-20 |
+| 237 pytest tests passing (fast suite, 0 failures) | Verified 2026-05-20 (Phase 5B.8) |
 | ROC-AUC 0.6776 locked as regression guard | Verified 2026-05-20 |
 | Benchmark script with machine-readable JSON output | benchmark_results.json 2026-05-20 |
 | Docker build succeeded (sha256: 858fbcfe) | Verified 2026-05-20 |
@@ -95,8 +96,8 @@ Split: 80/20 stratified, random_state=42, scaler fit on train only.
 
 ## Test Evidence
 
-- **212 fast pytest tests passing** as of Phase 5B.6C
-- Test files: test_config, test_data_pipeline, test_model_pipeline, test_agents, test_artifacts, test_api, test_benchmark_script, test_governance, test_compliance_context
+- **237 fast pytest tests passing** as of Phase 5B.8
+- Test files: test_config, test_data_pipeline, test_model_pipeline, test_agents, test_artifacts, test_api, test_benchmark_script, test_governance, test_compliance_context, test_mlflow_tracking
 - ROC-AUC 0.6776 locked as a numerical regression guard in test_api.py and test_governance.py
 - All governance write/load tests isolated to tmp_path via monkeypatch
 - Compliance tests include no-secrets assertions (GROQ_API_KEY not in output)
@@ -138,8 +139,8 @@ These must be stated in any portfolio presentation:
 - The system has not been deployed to any production environment
 - No organization has adopted or validated this system for operational use
 - The Docker image is local only; not published to any registry
-- Git repository is not yet initialized (pending owner API key rotation)
-- MLflow model governance tracking is not yet implemented
+- Git repository initialized (Phase 5B.7); first commit 37bbb68; no remote push yet
+- MLflow tracking is local file-based only (mlruns/); no remote server, no model registry
 
 ---
 
@@ -163,7 +164,11 @@ Records are accessible via GET /governance/latest and GET /governance/history."
 prompt includes actual ROC-AUC, recall, class balance, drift status, and governance
 run ID. The fallback path uses the same evidence values."
 
-"212 pytest tests passing. No em dashes. No banned claims. Claim-safety document
+"Added local MLflow file-based tracking to each pipeline run. Experiment: agentx_risk_validation.
+5 metrics, 8 parameters, and 8 evidence artifacts logged per run. Tracking failure is caught
+and does not stop the pipeline."
+
+"237 pytest tests passing. No em dashes. No banned claims. Claim-safety document
 maintained throughout development."
 
 ---
@@ -176,8 +181,8 @@ maintained throughout development."
 - Regulatory approved
 - Enterprise adopted
 - High recall or strong F1 (the baseline intentionally does not achieve this)
-- Public GitHub repository available (not yet initialized)
-- MLflow governance tracking (planned, not yet implemented)
+- Public GitHub repository (git initialized locally; no remote push yet)
+- Remote MLflow server, model registry, or production MLflow deployment
 
 ---
 
@@ -185,13 +190,14 @@ maintained throughout development."
 
 | Chip | Evidence File |
 |---|---|
-| 212 Tests Passing | test suite run output |
+| 237 Tests Passing | test suite run output |
 | FastAPI Validation Boundary | docs/evidence/api_boundary_report.md |
 | Dockerized Local Service | Dockerfile + Docker smoke test |
 | SHAP Explainability | data/validation_outputs/shap_summary.png |
 | FAISS Feedback Memory | agents/feedback_memory_agent.py |
 | Governance Run Records | docs/evidence/governance_evidence_report.md |
 | Grounded Compliance Review | docs/evidence/compliance_grounding_report.md |
+| Local MLflow Tracking | docs/evidence/mlflow_tracking_report.md |
 | ROC-AUC 0.6776 | docs/evidence/verified_metrics.md |
 | Local API Benchmarked | docs/evidence/benchmark_report.md |
 | Claim-Safe Evidence | docs/evidence/claim_safety.md |

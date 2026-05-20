@@ -1,6 +1,6 @@
 # AgentX Risk Validator -- L2 Engineering Upgrade Plan
 Audit date: 2026-05-19
-Last updated: 2026-05-20 (Phase 5B.6C complete)
+Last updated: 2026-05-20 (Phase 5B.8 complete)
 Scope: Phase 5B recommended engineering upgrades
 
 ---
@@ -197,15 +197,49 @@ Full details in `docs/evidence/api_boundary_report.md`.
 ### U6.1 -- Ground compliance in model outputs
 Modify compliance_agent to receive actual metrics dict and pass it as context to the Groq prompt. Reference SR11-7 and Basel docs via RAG using the existing FAISS infrastructure.
 
-### U6.2 -- MLflow integration
-Wire MLflow into model_utils.train_model():
+### U6.2 -- MLflow integration [DONE -- Phase 5B.8]
+
+Created `utils/mlflow_tracking.py` with full local tracking utility:
+- `configure_mlflow()`: sets tracking URI (`file:///` format, required on Windows) and experiment
+- `run_mlflow_tracking_summary(performance_report, governance_run_id)`: orchestrates full run logging
+- Safe artifact filtering: filenames containing `.env`, `credential`, `api_key`, `secret`, `password`, or `token` are skipped
+- `mlflow_tracking_available()`: returns True if mlruns/ exists and is non-empty
+
+Added Step 13 to `run_agentx_pipeline()` in main.py:
 ```python
-import mlflow
-with mlflow.start_run():
-    mlflow.log_params({"model": "LogisticRegression", "max_iter": 1000})
-    mlflow.log_metrics({"roc_auc": roc_auc, "accuracy": acc})
-    mlflow.sklearn.log_model(model, "credit_model")
+try:
+    from utils.mlflow_tracking import run_mlflow_tracking_summary
+    mlflow_result = run_mlflow_tracking_summary(
+        performance_report=performance_report,
+        governance_run_id=gov_record["validation_run_id"],
+    )
+except Exception as exc:
+    logger.warning("MLflow tracking did not complete (pipeline not affected): %s", exc)
+    warnings.append(f"MLflow tracking skipped: {exc}")
 ```
+
+Added to `utils/config.py`:
+```python
+MLFLOW_TRACKING_DIR: Path = PROJECT_ROOT / "mlruns"
+MLFLOW_ARTIFACTS_DIR: Path = PROJECT_ROOT / "mlartifacts"
+MLFLOW_EXPERIMENT_NAME: str = "agentx_risk_validation"
+```
+
+Metrics logged per run: roc_auc, accuracy, precision, recall, f1_score.
+Params logged per run: dataset_rows, feature_count, model_type, target, class_balance, test_size, random_state, validation_run_id.
+Artifacts logged: up to 8 evidence files (missing files skipped gracefully).
+
+API: `GET /evidence` now returns `mlflow_tracking_available` field.
+Tests: 25 new tests in `tests/test_mlflow_tracking.py`. All isolated via tmp_path and monkeypatch.
+Total test suite after Phase 5B.8: 237 passing.
+
+Verified first run: run_id=96bb66e40b5242bca667ef38ab39aba0, experiment=agentx_risk_validation,
+5 metrics logged, 8 params logged, 8 artifacts logged. ROC-AUC confirmed 0.6776.
+
+.gitignore: `mlruns/` and `mlartifacts/` added (local run history not committed).
+
+Limitations: Local file tracking only. No remote server. No model registry. No MLflow UI deployment.
+Full documentation: docs/evidence/mlflow_tracking_report.md
 
 ### U6.3 -- Benchmark script [DONE -- Phase 5B.6A]
 
@@ -309,4 +343,4 @@ Full documentation: docs/evidence/compliance_grounding_report.md
 | Wave 3 | COMPLETE (Phase 5B.3) | Delete stubs, consolidate duplicates, config.py, structured logging | Engineering maturity claim |
 | Wave 4 | COMPLETE (Phase 5B.4) | 85 pytest tests: config, data, model, agents, artifacts, smoke | Quality and reliability claim |
 | Wave 5 | COMPLETE (Phase 5B.5) | Dockerfile, .dockerignore, FastAPI boundary (GET /health, GET /metrics, GET /evidence, POST /validate), 26 API tests, main.py refactor | Deployment and API claim |
-| Wave 6 | PARTIAL (Phase 5B.6C) | Benchmark script (6A); local governance evidence layer + /governance API (6B); compliance grounding (6C); MLflow still planned | Benchmark, governance, and compliance grounding claims; MLflow pending |
+| Wave 6 | COMPLETE (Phase 5B.8) | Benchmark script (6A); local governance evidence layer + /governance API (6B); compliance grounding (6C); evidence consolidation (6D); git init + first commit (5B.7); local MLflow tracking (5B.8) | Benchmark, governance, compliance grounding, MLflow tracking claims all unlocked |

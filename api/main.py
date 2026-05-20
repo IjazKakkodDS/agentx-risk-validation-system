@@ -31,6 +31,7 @@ from api.service import (
     list_governance_history,
     load_latest_governance_record,
     load_verified_metrics,
+    mlflow_tracking_available,
     run_validation_pipeline,
 )
 from utils.config import EVIDENCE_DIR, VERIFIED_METRICS_JSON_PATH
@@ -123,6 +124,7 @@ def evidence():
         evidence_files=evidence_files,
         generated_artifacts=generated_artifacts,
         governance_available=governance_available(),
+        mlflow_tracking_available=mlflow_tracking_available(),
     )
 
 

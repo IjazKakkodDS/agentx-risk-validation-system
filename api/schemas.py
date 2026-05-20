@@ -72,6 +72,7 @@ class EvidenceResponse(BaseModel):
     evidence_files: List[EvidenceFileInfo]
     generated_artifacts: List[ArtifactStatus]
     governance_available: bool = False
+    mlflow_tracking_available: bool = False
     claim_safety_note: str = CLAIM_SAFETY_NOTE
 
 

@@ -92,6 +92,12 @@ def governance_available() -> bool:
     return GOVERNANCE_LATEST_PATH.exists()
 
 
+def mlflow_tracking_available() -> bool:
+    """Return True if local MLflow tracking has at least one run recorded."""
+    from utils.mlflow_tracking import mlflow_tracking_available as _check
+    return _check()
+
+
 def run_validation_pipeline(request) -> Dict[str, Any]:
     """
     Invoke run_agentx_pipeline() from main.py with flags from the API request.

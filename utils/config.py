@@ -60,3 +60,8 @@ DEFAULT_MODEL_MAX_ITER: int = 1000
 
 # Groq LLM default model (read from env at runtime; fallback defined here)
 GROQ_DEFAULT_MODEL: str = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+# MLflow local tracking (file-based, no remote server)
+MLFLOW_TRACKING_DIR: Path = PROJECT_ROOT / "mlruns"
+MLFLOW_ARTIFACTS_DIR: Path = PROJECT_ROOT / "mlartifacts"
+MLFLOW_EXPERIMENT_NAME: str = "agentx_risk_validation"

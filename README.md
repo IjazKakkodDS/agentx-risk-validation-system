@@ -444,6 +444,7 @@ No concurrency testing was performed.
 | `docs/evidence/benchmark_report.md` | Human-readable benchmark report with disclaimer and limitations, Phase 5B.6A |
 | `docs/evidence/governance_evidence_report.md` | Local governance evidence layer, validation-run record schema, API endpoints, Phase 5B.6B |
 | `docs/evidence/compliance_grounding_report.md` | Compliance agent grounding upgrade, evidence context fields, fallback behavior, Phase 5B.6C |
+| `docs/evidence/mlflow_tracking_report.md` | Local MLflow tracking configuration, metrics/params/artifacts logged, verified run, limitations, Phase 5B.8 |
 | `docs/evidence/system_inventory.md` | Full file-by-file inventory of the codebase |
 | `docs/evidence/architecture_audit.md` | Agent layer, data flow, architectural risk analysis |
 | `docs/evidence/engineering_gap_report.md` | 15 engineering gaps with priority and status |
@@ -476,12 +477,10 @@ These are engineering boundaries and active upgrade targets, not design defects:
 
 | Limitation | Status |
 |---|---|
-| Git repository not initialized | Pending owner API key rotation |
-| Groq API key rotation required before git init | Owner action required |
-| Compliance agent not grounded in model outputs | Planned product module: Wave 6 |
 | Low recall on default class | Known baseline limitation; class-weighted and tree-based models planned |
 | Compliance output is advisory only | By design; grounded in local validation evidence but not a regulatory determination |
 | Docker image is local only | Not published to any registry; not a production deployment |
+| MLflow tracking is local file-based only | No remote server, no model registry, no production MLflow deployment |
 | No regulatory approval | Not claimed; regulatory reference docs are informational |
 
 ---
@@ -504,13 +503,14 @@ These are engineering boundaries and active upgrade targets, not design defects:
 - Model comparison page in Streamlit dashboard
 - `utils/config.py` for centralized path management (Phase 5B.3)
 - Structured logging via Python `logging` module (Phase 5B.3)
-- 212-passing pytest test suite with ROC-AUC regression guard at 0.6776 (Phases 5B.4-5B.6C)
+- 237-passing pytest test suite with ROC-AUC regression guard at 0.6776 (Phases 5B.4-5B.8)
 - FastAPI local service boundary: GET /health, GET /metrics, GET /evidence, POST /validate (Phase 5B.5)
 - GET /governance/latest and GET /governance/history API endpoints (Phase 5B.6B)
 - Docker image: `agentx-risk-validator` (python:3.11-slim, port 8000) (Phase 5B.5)
 - Benchmark script with local endpoint and pipeline measurements (Phase 5B.6A)
 - Local governance evidence layer: validation-run record with run ID, metrics snapshot, drift status, compliance status, risk flags, and claim-safety note (Phase 5B.6B)
 - Compliance agent grounded in local validation evidence: actual ROC-AUC, recall, class balance, drift status, and governance run ID passed to LLM prompt and fallback advisory (Phase 5B.6C)
+- Local MLflow file-based tracking on each pipeline run: experiment `agentx_risk_validation`, 5 metrics, 8 parameters, 8 artifacts logged per run; tracking failure does not stop pipeline (Phase 5B.8)
 
 ### Planned Product Modules
 
@@ -518,7 +518,6 @@ These are engineering boundaries and active upgrade targets, not design defects:
 |---|---|
 | Benchmark per-agent timing | Timing broken down by individual agent step within a single run |
 | MCP governance log | Extend local governance layer to a full model-change event log |
-| MLflow validation tracking | Log parameters, metrics, and model artifacts per run |
 | PDF audit pack generation | Structured multi-section report with signature block |
 | Drift-triggered revalidation | Automated pipeline re-run when drift threshold is exceeded |
 | Class-weighted and XGBoost models | Improved recall on the default class |
@@ -543,6 +542,7 @@ These are engineering boundaries and active upgrade targets, not design defects:
 - Benchmark script with measured local endpoint and pipeline latencies saved as machine-readable JSON evidence
 - Local governance evidence layer: structured JSON record per run, GET /governance/latest and GET /governance/history API endpoints, 60+ governance unit tests
 - Compliance agent grounded in actual model evidence: verified ROC-AUC, recall, class balance, drift status, and governance run ID used in advisory review
+- Local MLflow file tracking: experiment agentx_risk_validation; 5 metrics, 8 params, 8 artifacts per run; mlruns/ excluded from git
 
 **Not safe to state:**
 

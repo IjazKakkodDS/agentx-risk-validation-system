@@ -1,9 +1,9 @@
 # AgentX Risk Validator -- Final Evidence Consolidation Report
 
 **System:** AgentX Risk Validator v1.0.0
-**Phase:** 5B.6D
+**Phase:** 5B.8
 **Date:** 2026-05-20
-**Status:** Evidence consolidated. Git initialization pending owner API key rotation.
+**Status:** All engineering waves complete. Git initialized. Local MLflow tracking added.
 
 ---
 
@@ -20,7 +20,8 @@
 | Wave 6B: Governance evidence | 5B.6B | COMPLETE | utils/governance.py, /governance/latest, /governance/history endpoints |
 | Wave 6C: Compliance grounding | 5B.6C | COMPLETE | utils/compliance_context.py, grounded Groq prompt, fallback advisory |
 | Wave 6D: Evidence consolidation | 5B.6D | COMPLETE | This report, portfolio_summary.md, git_readiness_check.md, .pytest_cache/ added to .gitignore |
-| Wave 6 remaining: MLflow | 5B.6E | PENDING | MLflow logging in model_utils.train_model() |
+| Wave 6E: Git initialization | 5B.7 | COMPLETE | git init, first commit (37bbb68), .gitattributes, mlruns/ in .gitignore |
+| Wave 6F: Local MLflow tracking | 5B.8 | COMPLETE | utils/mlflow_tracking.py, Step 13 in main.py, 25 tests, GET /evidence mlflow_tracking_available |
 
 ---
 
@@ -68,7 +69,8 @@ Supporting infrastructure: utils/config.py (path management), utils/logging_util
 | test_benchmark_script.py | 16 | Benchmark script imports, output file schema |
 | test_governance.py | ~60 | All governance utility functions, write/load round-trips |
 | test_compliance_context.py | ~39 | All context builder functions, constants, no-secrets checks |
-| **Total (fast)** | **212** | **0 failures** |
+| test_mlflow_tracking.py | 25 | MLflow tracking utility, configure, log, artifacts, summary (Phase 5B.8) |
+| **Total (fast)** | **237** | **0 failures** |
 
 ---
 
@@ -156,7 +158,9 @@ As of Phase 5B.6C, the ComplianceAgent grounding is verified:
 | Generated reports | Excluded by .gitignore |
 | Governance records | Excluded by .gitignore (data/governance/) |
 | Docker image | Does not contain .env (excluded by .dockerignore) |
-| .pytest_cache/ | Now excluded by .gitignore (added Phase 5B.6D) |
+| .pytest_cache/ | Excluded by .gitignore (added Phase 5B.6D) |
+| mlruns/ | Excluded by .gitignore (added Phase 5B.8) |
+| mlartifacts/ | Excluded by .gitignore (added Phase 5B.8) |
 
 ---
 
@@ -182,6 +186,7 @@ As of Phase 5B.6C, the ComplianceAgent grounding is verified:
 | docs/evidence/architecture_audit.md | 11.6 KB | ongoing |
 | docs/evidence/portfolio_positioning_draft.md | 9.4 KB | ongoing |
 | docs/evidence/engineering_gap_report.md | 9.8 KB | ongoing |
+| docs/evidence/mlflow_tracking_report.md | ~6 KB | 5B.8 |
 
 ---
 
@@ -201,30 +206,22 @@ Phase 5B.6D scan results:
 
 | Gap | Priority | Status |
 |---|---|---|
-| GAP-001: Git repo not initialized | P1 | Open -- owner must rotate Groq API key first |
 | GAP-014: PDF generation system dependency | P3 | Open -- pdfkit uses hardcoded Windows path; Streamlit FPDF works |
-| GAP-015: No MLflow tracking | P3 | Open -- planned Wave 6 remaining item |
 | Class-weighted or XGBoost model variants | P3 | Open -- planned product module |
 
-All P1 and P2 gaps are resolved except GAP-001, which is blocked on owner key rotation.
+All P1, P2, and all other P3 gaps are resolved. Only GAP-014 (PDF system dependency) remains open.
+GAP-001 (no git) is closed (Phase 5B.7). GAP-015 (no MLflow) is closed (Phase 5B.8).
 
 ---
 
 ## Recommended Next Action
 
-**Recommended: A -- Rotate Groq API key, then initialize git locally**
+All planned engineering waves (1-6) are complete. The system has a git repository,
+verified metrics, 237 passing tests, Docker packaging, FastAPI boundary, governance
+layer, compliance grounding, and local MLflow tracking.
 
-Rationale: GAP-001 (no git repository) is the only remaining P1 gap. All other P1
-and P2 engineering gaps are resolved. Git initialization requires only one owner action
-(key rotation at console.groq.com) followed by three commands. This unlocks version
-control, enables public portfolio sharing, and is prerequisite for all downstream
-portfolio actions (GitHub remote, case study, CI/CD).
-
-Steps:
-1. Rotate the Groq API key at console.groq.com
-2. Verify .env has the new key
-3. Run: `git init`
-4. Run: `git add .`
-5. Run: `git commit -m "Initial commit: AgentX Risk Validator -- Phase 5B complete"`
-
-After git initialization, the next recommended step is B (MLflow) to close GAP-015.
+Recommended next actions (owner discretion):
+1. Push git repository to a private GitHub remote when ready for portfolio sharing
+2. Add a GitHub remote: `git remote add origin <repo URL>` then `git push -u origin main`
+3. Review docs/evidence/portfolio_summary.md for public-facing portfolio framing
+4. Add class-weighted or XGBoost model variant to close the last planned product module

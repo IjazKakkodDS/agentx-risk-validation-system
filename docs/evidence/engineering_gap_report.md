@@ -122,11 +122,11 @@ Priority: P1 = must fix before portfolio claim, P2 = needed for elite maturity, 
 
 ---
 
-## GAP-015 [P3] -- No model versioning or governance tracking
+## GAP-015 [P3] -- No model versioning or governance tracking [CLOSED -- Phase 5B.8]
 
 **Observed:** The model is saved as `credit_model.pkl` with no version stamp, metadata, or MLflow tracking. MLflow is in requirements.txt but not used.
 **Impact:** Cannot demonstrate model governance lifecycle.
-**Fix:** Use MLflow to log each training run: parameters, metrics, model artifact. Add model_version to the validation report.
+**Resolution (Phase 5B.8):** Local MLflow file-based tracking wired into `run_agentx_pipeline()` as Step 13. Each pipeline run logs 5 metrics (ROC-AUC, accuracy, precision, recall, F1), 8 parameters (dataset_rows, feature_count, model_type, target, class_balance, test_size, random_state, validation_run_id), and up to 8 evidence artifacts to the `mlruns/` file store. Experiment: `agentx_risk_validation`. Tracking URI uses `file:///` format required on Windows. `utils/mlflow_tracking.py` created with full tracking utility functions and safe artifact filtering. 25 new pytest tests in `tests/test_mlflow_tracking.py`. Total test suite: 237 passing. First run verified: run_id=96bb66e40b5242bca667ef38ab39aba0, 5 metrics, 8 params, 8 artifacts. `mlruns/` and `mlartifacts/` excluded from git via `.gitignore`. Tracking is local development only -- no remote server, no model registry, no production MLflow deployment.
 
 ---
 
@@ -134,11 +134,11 @@ Priority: P1 = must fix before portfolio claim, P2 = needed for elite maturity, 
 
 | Gap | Priority | Category | Status |
 |---|---|---|---|
-| GAP-001 No git repo | P1 | Infrastructure | Open (pending owner key rotation) |
+| GAP-001 No git repo | P1 | Infrastructure | CLOSED (Phase 5B.7 -- git init, first commit) |
 | GAP-002 Exposed API key | P1 | Security | CLOSED (Phase 5B.1 -- .gitignore created) |
 | GAP-003 Empty README | P1 | Documentation | CLOSED (Phase 5B.2 -- README rewritten) |
 | GAP-004 ROC-AUC inconsistency | P1 | Model correctness | CLOSED (Phase 5B.1 -- Pipeline fixed) |
-| GAP-005 No tests | P1 | Quality | CLOSED (Phase 5B.4 through 5B.6C -- 212 tests passing) |
+| GAP-005 No tests | P1 | Quality | CLOSED (Phase 5B.4 through 5B.8 -- 237 tests passing) |
 | GAP-006 No Dockerfile | P2 | Deployment | CLOSED (Phase 5B.5) |
 | GAP-007 No FastAPI | P2 | Architecture | CLOSED (Phase 5B.5) |
 | GAP-008 Non-grounded compliance | P2 | Agent quality | CLOSED (Phase 5B.6C) |
@@ -148,4 +148,4 @@ Priority: P1 = must fix before portfolio claim, P2 = needed for elite maturity, 
 | GAP-012 No logging framework | P2 | Observability | CLOSED (Phase 5B.3 -- utils/logging_utils.py) |
 | GAP-013 No benchmark script | P3 | Evidence | CLOSED (Phase 5B.6A) |
 | GAP-014 PDF system dependency | P3 | Portability | Open |
-| GAP-015 No model versioning | P3 | Governance | Open (planned Wave 6) |
+| GAP-015 No model versioning | P3 | Governance | CLOSED (Phase 5B.8 -- local MLflow tracking) |

@@ -242,6 +242,23 @@ def run_agentx_pipeline(
     artifacts.append(gov_paths["run_path"])
     artifacts.append(gov_paths["latest_path"])
 
+    # Step 13 -- local MLflow validation tracking (optional; failure does not stop pipeline)
+    try:
+        from utils.mlflow_tracking import run_mlflow_tracking_summary
+        logger.info("Logging validation run to local MLflow tracking...")
+        mlflow_result = run_mlflow_tracking_summary(
+            performance_report=performance_report,
+            governance_run_id=gov_record["validation_run_id"],
+        )
+        logger.info(
+            "MLflow run logged: run_id=%s status=%s",
+            mlflow_result.get("run_id", "n/a"),
+            mlflow_result.get("status", "n/a"),
+        )
+    except Exception as exc:
+        logger.warning("MLflow tracking did not complete (pipeline not affected): %s", exc)
+        warnings.append(f"MLflow tracking skipped: {exc}")
+
     logger.info("AgentX pipeline complete.")
 
     return {

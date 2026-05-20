@@ -1,6 +1,6 @@
 # AgentX Risk Validator -- System Inventory
 Audit date: 2026-05-19
-Last updated: 2026-05-20 (Phase 5B.6C complete)
+Last updated: 2026-05-20 (Phase 5B.8 complete)
 Auditor: Phase 5A/5B Engineering Readiness Audit
 
 ---
@@ -9,11 +9,11 @@ Auditor: Phase 5A/5B Engineering Readiness Audit
 
 | Item | Status |
 |---|---|
-| Git repository | NOT initialized (.git folder absent) |
-| Branch | None |
-| Remote | None |
-| .gitignore | Absent |
-| README.md | Present but empty (1 line, blank) |
+| Git repository | Initialized (Phase 5B.7) |
+| Branch | main (first commit: 37bbb68) |
+| Remote | None (owner decision) |
+| .gitignore | Present -- added Phase 5B.1, updated through Phase 5B.8 |
+| README.md | Present -- rewritten Phase 5B.2 |
 
 ---
 
@@ -59,6 +59,7 @@ Auditor: Phase 5A/5B Engineering Readiness Audit
 | logging_utils.py | setup_logger() wrapper for structured logging | Present -- added Phase 5B.3 |
 | governance.py | Validation-run record assembly, write, load, list functions | Present -- added Phase 5B.6B |
 | compliance_context.py | Evidence context builder: load local artifacts, assemble structured context dict, format for LLM prompt | Present -- added Phase 5B.6C |
+| mlflow_tracking.py | Local MLflow file tracking: configure experiment, log metrics/params/artifacts, safe artifact filtering, graceful failure | Present -- added Phase 5B.8 |
 | __init__.py | Package marker | Present |
 
 Deleted in Phase 5B.3 (dead code):
@@ -129,7 +130,7 @@ Deleted in Phase 5B.3 (dead code):
 
 | Item | Status |
 |---|---|
-| Test suite (pytest/unittest) | PRESENT -- 212 fast tests passing (Phase 5B.6C) |
+| Test suite (pytest/unittest) | PRESENT -- 237 fast tests passing (Phase 5B.8) |
 | tests/conftest.py | Present -- session-scoped fixtures |
 | tests/test_config.py | Present -- 10 tests |
 | tests/test_data_pipeline.py | Present -- 11 tests |
@@ -141,6 +142,7 @@ Deleted in Phase 5B.3 (dead code):
 | tests/test_benchmark_script.py | Present -- 16 benchmark tests (Phase 5B.6A) |
 | tests/test_governance.py | Present -- ~60 governance utility tests (Phase 5B.6B) |
 | tests/test_compliance_context.py | Present -- ~39 compliance context tests (Phase 5B.6C) |
+| tests/test_mlflow_tracking.py | Present -- 25 MLflow tracking tests (Phase 5B.8) |
 | pytest.ini | Present |
 
 ---
@@ -168,7 +170,8 @@ Benchmark evidence files:
 | CI/CD config | ABSENT |
 | FastAPI implementation | PRESENT -- api/ package, 6 endpoints (Phase 5B.5 + 5B.6B) |
 | Governance evidence layer | PRESENT -- utils/governance.py, data/governance/ (Phase 5B.6B) |
-| .gitignore | PRESENT -- added Phase 5B.1 |
+| Local MLflow tracking | PRESENT -- utils/mlflow_tracking.py, mlruns/ (Phase 5B.8) |
+| .gitignore | PRESENT -- added Phase 5B.1, updated through Phase 5B.8 |
 | .dockerignore | PRESENT -- added Phase 5B.5 |
 | Config management module | PRESENT -- utils/config.py (Phase 5B.3) |
 | Logging framework | PRESENT -- utils/logging_utils.py (Phase 5B.3) |

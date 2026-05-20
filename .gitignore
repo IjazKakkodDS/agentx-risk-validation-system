@@ -52,6 +52,10 @@ reports/*.md
 Thumbs.db
 desktop.ini
 
+# === MLflow local tracking outputs ===
+mlruns/
+mlartifacts/
+
 # === Build artifacts ===
 dist/
 build/

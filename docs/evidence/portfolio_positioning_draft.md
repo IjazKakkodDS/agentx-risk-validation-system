@@ -1,7 +1,7 @@
 # AgentX Risk Validator -- Portfolio Positioning Draft
-Last updated: 2026-05-20 (Phase 5B.6C)
-Status: DRAFT -- AgentX is becoming portfolio-ready after L2 engineering waves complete.
-Waves 1, 2, 3, 4, and 5 are complete. Wave 6 is partially complete (benchmark, local governance evidence, and compliance grounding done; MLflow remains).
+Last updated: 2026-05-20 (Phase 5B.8)
+Status: DRAFT -- AgentX engineering waves 1 through 6 are all complete. Git initialized. First commit made.
+Waves 1, 2, 3, 4, 5, and 6 are complete. Local MLflow tracking added in Phase 5B.8.
 
 ---
 
@@ -124,8 +124,8 @@ These must be included in any portfolio presentation of AgentX:
 - The system operates on a 5,000-row public sample, not live portfolio data.
 - The system has not been deployed to any production environment.
 - No organization has adopted or validated this system for operational use.
-- Git repository is not yet initialized (pending owner API key rotation).
-- No MLflow tracking yet (planned product module: Wave 6).
+- The system has been committed to a local git repository (Phase 5B.7). No remote push yet.
+- MLflow tracking is local file-based only. No remote server, model registry, or production MLflow deployment.
 - The Docker image is local only; it is not published to any registry.
 
 ---
@@ -166,8 +166,12 @@ Records are accessible via GET /governance/latest and GET /governance/history AP
 "Upgraded the compliance agent so its advisory review is grounded in actual validation
 evidence from the current pipeline run. The LLM system prompt includes the verified ROC-AUC
 (0.6776), recall, class balance, drift status, governance run ID, and artifact inventory.
-The fallback advisory path uses the same evidence values when the API is unavailable.
-212 pytest tests passing (39 compliance context tests, 60+ governance unit tests, 41 API tests)."
+The fallback advisory path uses the same evidence values when the API is unavailable."
+
+"Added local MLflow file-based tracking to each pipeline run. Each run logs 5 metrics
+(ROC-AUC, accuracy, precision, recall, F1), 8 validation parameters, and up to 8 evidence
+artifacts to a local mlruns/ file store. Experiment: agentx_risk_validation. Tracking
+failure is caught and does not stop the pipeline. 237 pytest tests passing."
 
 **Not appropriate yet:**
 
@@ -176,7 +180,7 @@ The fallback advisory path uses the same evidence values when the API is unavail
 - "Validated by regulators"
 - "High-recall default detection"
 - "Complete MRM platform"
-- "MLflow-tracked governance" (planned Wave 6)
+- "Remote MLflow server or model registry" (local file tracking only)
 
 ---
 
@@ -192,5 +196,5 @@ AgentX is becoming portfolio-ready after each of the following engineering waves
 | Wave 6 benchmark (6A) -- DONE | "Measured local performance evidence: benchmark_results.json and benchmark_report.md" |
 | Wave 6 governance evidence (6B) -- DONE | "Local governance evidence layer: run record per pipeline run; GET /governance endpoints" |
 | Wave 6 compliance grounding (6C) -- DONE | "Evidence-grounded compliance advisory; 212 passing tests" |
-| Wave 6 MLflow -- pending | "MLflow-tracked validation runs" |
-| Portfolio summary doc | Elite-tier portfolio case study ready for public sharing |
+| Wave 6 MLflow (5B.8) -- DONE | "Local MLflow-tracked validation runs; 237 passing tests; all 15 gaps closed" |
+| Portfolio summary doc | Elite-tier portfolio case study ready for public sharing after owner review |

@@ -1,157 +1,233 @@
-# AgentX: Autonomous Risk Model Validation Assistant
+# AgentX: Autonomous Risk Model Validation System
 
-> An engineered multi-agent pipeline for model validation, explainability, drift detection,
-> compliance review, feedback memory, and governance reporting in financial-risk contexts.
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Validation%20Boundary-009688?logo=fastapi)
+![Docker](https://img.shields.io/badge/Docker-Local%20Service-2496ED?logo=docker&logoColor=white)
+![Tests](https://img.shields.io/badge/Tests-268%20passing-brightgreen)
+![SHAP](https://img.shields.io/badge/SHAP-Explainability-FF6B35)
+![FAISS](https://img.shields.io/badge/FAISS-Feedback%20Memory-7B2D8B)
+![MLflow](https://img.shields.io/badge/MLflow-Local%20Tracking-0194E2)
+![Governance](https://img.shields.io/badge/Governance-Validation%20Records-4CAF50)
+![Audit Pack](https://img.shields.io/badge/Audit%20Pack-MD%20%7C%20HTML%20%7C%20PDF-607D8B)
+![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.6776-informational)
+
+A local autonomous model validation system for credit risk workflows with integrated
+performance validation, SHAP explainability, drift monitoring, governance records,
+grounded advisory compliance review, MLflow tracking, FastAPI serving, and audit-pack
+generation.
 
 ---
 
-## Executive Summary
+## System Summary
 
-AgentX is being engineered as a modular, multi-agent model validation assistant for
-financial-risk workflows. It automates first-pass model review across six domains:
-data quality validation, model performance benchmarking, SHAP-based explainability,
-regulatory compliance review, statistical drift detection, and vector-based feedback
-memory with historical run comparison.
+AgentX validates a credit-risk model through a modular agent workflow. It checks data
+quality, model performance, explainability, drift, feedback memory, compliance context,
+governance traceability, MLflow run tracking, and audit-pack outputs. It is designed as
+a local model validation and governance evidence system.
 
-This is a local research and portfolio system under active engineering development.
-It is not a production regulatory platform and does not constitute regulatory approval.
-The engineering roadmap is structured to grow AgentX toward a governance-grade
-validation tool through a series of planned product modules described later in this README.
+The system accepts a LendingClub credit portfolio dataset, runs it through a seven-agent
+validation pipeline, and produces structured outputs covering all validation dimensions.
+Three entry points are supported: a CLI pipeline, an interactive Streamlit dashboard,
+and a FastAPI local service boundary.
+
+---
+
+## Quantitative Snapshot
+
+| Category | Detail |
+|---|---|
+| Dataset | LendingClub public loan sample (2007-2018Q4) |
+| Rows | 5,000 |
+| Features | 12 |
+| Target | Binary `loan_status` (Fully Paid / Charged Off) |
+| Class balance | 81% non-default / 19% default |
+| Model | `Pipeline(StandardScaler + LogisticRegression)` |
+| ROC-AUC | 0.6776 |
+| Accuracy | 0.804 |
+| Precision | 0.350 |
+| Recall | 0.037 |
+| F1 | 0.067 |
+| Test suite | 268 tests passing, 0 failures |
+| API benchmark | GET /health ~2.0 ms median, POST /validate ~2,430 ms median (local in-process) |
+| Artifact coverage | 8/8 artifacts present after each pipeline run |
+| Docker | Build and smoke test passed (python:3.11-slim, port 8000) |
+| Audit pack | Markdown, HTML, and PDF generated per run (fpdf2, markdown2) |
+
+ROC-AUC is the preferred headline metric because the target is imbalanced. Recall
+remains a baseline improvement target.
+
+---
+
+## Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Data and modeling | Python, pandas, scikit-learn |
+| Model pipeline | `Pipeline(StandardScaler + LogisticRegression)` |
+| Explainability | SHAP |
+| Feedback memory | FAISS (IndexFlatIP, cosine similarity) |
+| Compliance reasoning | Groq LLM (llama-3.3-70b-versatile) with grounded local fallback |
+| API boundary | FastAPI, Pydantic v2, Uvicorn |
+| Testing | pytest |
+| Run tracking | MLflow (local file store) |
+| Governance evidence | JSON validation-run records, run ID traceability |
+| Report generation | Markdown, HTML (markdown2), PDF (fpdf2) |
+| Packaging | Docker (python:3.11-slim) |
+| Benchmarking | Custom local benchmark script using FastAPI TestClient |
 
 ---
 
 ## Business Problem
 
-Financial institutions are required by regulation and internal governance policies to
-validate credit, market, and operational risk models before deployment and on an ongoing
-basis. A standard model review process covers:
+Model validation in credit risk workflows is evidence-intensive. Reviewers need
+reproducible metrics, explainability outputs, drift signals, governance traceability,
+and structured documentation before a model can advance to review or approval discussions.
 
-- input data quality and class balance
-- discriminatory power (AUC, accuracy, stability)
-- feature attribution and explainability
-- alignment with regulatory frameworks such as SR 11-7 and Basel principles
-- feature distribution shift over time
-- documentation and audit-ready evidence
+When assembled manually, this evidence-gathering phase is slow, inconsistent across
+reviewers, and difficult to scale as model inventory grows. AgentX addresses this by
+automating the first-pass validation workflow: running a defined agent sequence,
+producing structured artifacts on each run, and maintaining a governance record of
+every validation cycle.
 
-When done manually, these steps can be slow, inconsistent across reviewers, and
-difficult to scale across a growing model inventory. AgentX demonstrates an
-automated first-pass validation workflow that produces reproducible, structured outputs
-for each run, organized by agent and persisted as JSON and Markdown evidence files.
-
-The long-term product goal is to support faster, more consistent, and more auditable
-model review workflows, not to replace independent validation judgment but to accelerate
-and standardize the evidence-gathering phase.
+AgentX does not replace independent validation judgment or regulatory review. It
+accelerates and standardizes the evidence-gathering phase that precedes those processes.
 
 ---
 
-## Target Users
+## System Objective
 
-| Role | Relevance |
-|---|---|
-| Model validation teams | Primary: run AgentX as automated pre-review layer |
-| Model risk management teams | Review governance outputs and evidence files |
-| Risk analytics teams | Inspect performance metrics, drift reports, SHAP outputs |
-| Data science teams | Use AgentX outputs to prepare models for formal review |
-| Compliance and audit stakeholders | Reference compliance checklist and regulatory context |
-| Technical reviewers | Assess model governance workflow design and tooling |
+**Validation automation:** Run a seven-agent pipeline on demand, producing structured
+JSON and Markdown outputs for every validation dimension.
+
+**Explainability:** Compute per-prediction SHAP values, generate a global feature
+importance plot, and store a normalized model fingerprint in a FAISS index for
+similarity retrieval.
+
+**Drift and monitoring evidence:** Apply KS-test drift detection across all numeric
+features, comparing a reference dataset to an incoming dataset, and flag shifted
+distributions.
+
+**Governance traceability:** Write a structured validation-run record on each pipeline
+run, capturing metrics, artifact status, drift results, compliance status, reviewer
+placeholder, and risk flags.
+
+**Advisory compliance review:** Build a grounded evidence context from the current run
+and pass it to a language model or a local fallback to generate a structured advisory
+checklist referencing SR 11-7 and Basel principles.
+
+**Audit pack generation:** Package all evidence into Markdown, HTML, and PDF outputs
+per run using pure-Python libraries with no system binary dependency.
 
 ---
 
-## System Architecture
+## System Value
 
-```
-Input: CSV data file (uploaded or CLI path)
-  |
-  v
-Preprocessing and target encoding
-  utils/load_data.py
-  - Drop ID columns
-  - Impute numeric with median
-  - LabelEncode categoricals
-  - Encode loan_status to 0/1
-  - StandardScaler applied inside model Pipeline (no leakage)
-  |
-  v
-Model Training Pipeline
-  utils/model_utils.py
-  Pipeline(StandardScaler + LogisticRegression)
-  Saved as single artifact with scaler included
-  |
-  v
-+----------------------------------------------------------+
-|                       Agent Layer                        |
-+----------------------------------------------------------+
-|  DataValidatorAgent     -> data_validation.json          |
-|  PerformanceAgent       -> performance_metrics.json      |
-|  ExplainabilityAgent    -> shap_summary.png + vector     |
-|  ComplianceAgent        -> last_compliance.json          |
-|  DriftMonitorAgent      -> drift_report.json             |
-|  FeedbackMemoryAgent    -> FAISS index (model_memory/)   |
-|  ReportWriterAgent      -> validation_report.md          |
-+----------------------------------------------------------+
-  |
-  v
-Verified evidence docs
-  docs/evidence/verified_metrics.md
-  docs/evidence/verified_metrics.json
-  |
-  v
-Governance evidence layer
-  utils/governance.py -- validation-run record written on each pipeline run
-  data/governance/latest_validation_run.json
-  data/governance/validation_runs/{run_id}.json
-  |
-  v
-Streamlit validation dashboard
-  streamlit_app.py -- 8-page interactive interface
-  |
-  v
-FastAPI local service boundary
-  api/main.py -- GET /health, GET /metrics, GET /evidence, POST /validate
-              -- GET /governance/latest, GET /governance/history
-  Docker: agentx-risk-validator (python:3.11-slim, port 8000)
-```
-
-**Entry points:**
-
-| Path | Command |
+| Capability | What changes operationally |
 |---|---|
-| CLI pipeline | `python main.py` |
-| Interactive dashboard | `streamlit run streamlit_app.py` |
-| Local API service | `uvicorn api.main:app --host 0.0.0.0 --port 8000` |
-| Docker container | `docker run --rm -p 8000:8000 agentx-risk-validator` |
+| Data validation | Surfaces missing values, class imbalance, and feature distribution before model evaluation |
+| Performance validation | Produces reproducible, locked metrics from a consistent preprocessing and split pipeline |
+| SHAP attribution | Explains model behavior at global level; supports regulatory explainability expectations |
+| Drift monitor | Detects feature distribution shifts between reference and incoming datasets |
+| Feedback memory | Retrieves historically similar models by SHAP cosine similarity for run-over-run comparison |
+| Governance records | Creates per-run traceability with run ID, timestamps, reviewer placeholder, and risk flags |
+| MLflow tracking | Preserves metrics, parameters, and artifacts per run in a local file store |
+| Audit pack | Packages evidence into reviewable Markdown, HTML, and PDF outputs without manual assembly |
+
+---
+
+## Role in Workflow
+
+AgentX sits between model and data ingestion and the model review or approval discussion.
+It accepts a credit portfolio dataset, executes the validation pipeline, and produces
+evidence outputs structured for human-in-the-loop review.
+
+```mermaid
+flowchart LR
+    A[Data and Model Artifacts] --> B[AgentX Validation Workflow]
+    B --> C[Evidence Outputs]
+    C --> D[Human Reviewer / Governance Review]
+```
+
+Outputs are not reviewed or approved automatically. The `reviewer_status` field in
+each governance record is set to `pending_review` on every run.
+
+---
+
+## Architecture
+
+### End-to-End Validation Lifecycle
+
+```mermaid
+flowchart TD
+    A[CSV Data Input] --> B[Preprocessing and Feature Encoding]
+    B --> C[Model Training Pipeline]
+    C --> D[Agent Layer - 7 Agents]
+    D --> E[Governance Record Written]
+    E --> F[MLflow Run Logged]
+    F --> G[Audit Pack Generated]
+    G --> H[FastAPI / Streamlit / CLI Surfaces]
+```
+
+### Agent Workflow
+
+```mermaid
+flowchart LR
+    A[DataValidatorAgent] --> B[PerformanceAgent]
+    B --> C[ExplainabilityAgent]
+    C --> D[DriftMonitorAgent]
+    D --> E[FeedbackMemoryAgent]
+    E --> F[ComplianceAgent]
+    F --> G[ReportWriterAgent]
+```
+
+### Service Boundary
+
+```mermaid
+flowchart TB
+    A[python main.py CLI] --> E[AgentX Pipeline Core]
+    B[streamlit_app.py Dashboard] --> E
+    C[api/main.py FastAPI] --> E
+    D[Docker Container] --> C
+    E --> F[Evidence and Governance Outputs]
+```
+
+### Governance and Evidence Flow
+
+```mermaid
+flowchart LR
+    A[Validation Run] --> B[5 Metrics Locked]
+    A --> C[8 Artifacts Present]
+    B --> D[Governance JSON Record]
+    C --> D
+    D --> E[MLflow File Store]
+    D --> F[Audit Pack MD / HTML / PDF]
+```
 
 ---
 
 ## Agent Layer
 
-| Agent | Purpose | Status | Evidence output |
-|---|---|---|---|
-| DataValidatorAgent | Missing values, duplicates, class distribution, summary statistics | Functional | `data/validation_outputs/data_validation.json` |
-| PerformanceAgent | Accuracy, precision, recall, F1, ROC-AUC, confusion matrix | Functional | `data/validation_outputs/performance_metrics.json` |
-| ExplainabilityAgent | SHAP values, mean feature importance vector, normalized FAISS embedding | Functional | `data/validation_outputs/shap_summary.png` |
-| ComplianceAgent | Advisory compliance review grounded in actual model evidence (ROC-AUC, recall, drift, governance run ID); Groq LLM with grounded fallback advisory | Functional (requires configured Groq key; grounded fallback advisory available without key) | `data/validation_outputs/last_compliance.json` |
-| DriftMonitorAgent | Kolmogorov-Smirnov test per numeric feature vs reference dataset | Functional | `data/validation_outputs/drift_report.json` |
-| FeedbackMemoryAgent | FAISS inner-product vector store; stores normalized SHAP vectors and retrieves historically similar models | Functional | `data/model_memory/` |
-| ReportWriterAgent | Generates Markdown validation report combining all agent outputs | Functional | `reports/validation_report.md` |
+| Agent | Responsibility | Evidence Output |
+|---|---|---|
+| DataValidatorAgent | Missing values, duplicates, class distribution, summary statistics | `data/validation_outputs/data_validation.json` |
+| PerformanceAgent | ROC-AUC, accuracy, precision, recall, F1, confusion matrix | `data/validation_outputs/performance_metrics.json` |
+| ExplainabilityAgent | SHAP values, mean feature importance vector, normalized FAISS embedding, summary plot | `data/validation_outputs/shap_summary.png` |
+| DriftMonitorAgent | KS-test per numeric feature, drift flag, drifted feature list | `data/validation_outputs/drift_report.json` |
+| FeedbackMemoryAgent | FAISS inner-product similarity search, historical model comparison by SHAP cosine similarity | `data/model_memory/` |
+| ComplianceAgent | Evidence-grounded advisory review referencing SR 11-7 and Basel principles; Groq LLM or grounded local fallback | `data/validation_outputs/last_compliance.json` |
+| ReportWriterAgent | Consolidated Markdown validation report from all agent outputs | `reports/validation_report.md` |
 
 ---
 
-## Verified Model Evidence
+## Model Evidence
 
-Metrics from Phase 5B.1 -- first pipeline-consistent, reproducible run.
-Generated 2026-05-19.
+The model is a scikit-learn `Pipeline(StandardScaler + LogisticRegression(max_iter=1000, random_state=42))`.
+It is the validation target, not an optimized production scoring model. StandardScaler
+is fit on the training split only and stored inside the Pipeline artifact, preventing
+preprocessing leakage at inference.
 
-| Attribute | Value |
-|---|---|
-| Dataset | LendingClub public loan data (2007-2018Q4 sample) |
-| Total rows | 5,000 |
-| Features used | 12 |
-| Target | `loan_status` (0 = Fully Paid, 1 = Charged Off) |
-| Class balance | 81.0% non-default / 19.0% default |
-| Train rows | 4,000 (stratified 80/20 split) |
-| Test rows | 1,000 |
-| Model | `Pipeline(StandardScaler + LogisticRegression(max_iter=1000))` |
+Train/test split: 80/20 stratified, random_state=42. Scaler fit on training set;
+applied to test set through the saved Pipeline.
 
 | Metric | Value |
 |---|---|
@@ -161,195 +237,163 @@ Generated 2026-05-19.
 | Recall | 0.037 |
 | F1 Score | 0.067 |
 
-**Interpretation note:**
+Accuracy of 0.804 reflects the 81% majority class. ROC-AUC of 0.6776 is the preferred
+headline metric: it is threshold-independent and resistant to class imbalance. Recall of
+0.037 is a documented baseline characteristic of unweighted logistic regression on an
+81/19 imbalanced target. Class-weighted and tree-based model variants are planned
+extensions.
 
-Accuracy of 0.804 should not be overinterpreted. It mostly reflects the 81% majority
-class -- a classifier that always predicts "Fully Paid" would score 0.81 accuracy.
-ROC-AUC of 0.6776 is the preferred headline validation metric because it is
-threshold-independent and resistant to class imbalance.
-
-Recall of 0.037 is low and is documented as a known limitation of the non-weighted
-baseline LogisticRegression on an imbalanced target. Improving recall through
-class-weighted or tree-based models is a planned product module described in the
-engineering roadmap. AgentX is designed to validate models, not to deliver the
-optimal classifier.
-
-Full details: `docs/evidence/verified_metrics.md`
+Full evidence: `docs/evidence/verified_metrics.md` and `docs/evidence/verified_metrics.json`.
 
 ---
 
 ## Explainability and Feedback Memory
 
-AgentX uses SHAP (SHapley Additive exPlanations) to compute per-prediction feature
-attribution values. The mean SHAP vector across a sample is normalized and stored in a
-FAISS inner-product index as a model fingerprint.
-
-On each validation run, the system searches for historically similar models in the
-FAISS store by cosine similarity. This feedback memory layer supports:
-
-- tracking how feature importance shifts across model versions
-- identifying whether a new submission behaves similarly to previously validated models
-- building a model lineage record across validation cycles
-
-The SHAP summary plot is saved locally to `data/validation_outputs/shap_summary.png`
+The ExplainabilityAgent computes SHAP values for a 100-row sample per run. A global
+feature importance summary plot is saved to `data/validation_outputs/shap_summary.png`
 and displayed in the Streamlit dashboard Explainability page.
 
-No claim of production model approval is made. The feedback memory layer is a
-local research implementation and is planned to evolve into a full historical
-validation-run comparison system.
+The normalized mean SHAP vector is stored in a FAISS inner-product index
+(`data/model_memory/`) as a model fingerprint. On each validation run, the
+FeedbackMemoryAgent retrieves the most similar historical models by cosine similarity.
+This supports:
 
----
-
-## Compliance Review
-
-The Compliance Agent uses a Groq-hosted large language model to produce an advisory
-compliance review grounded in actual AgentX validation evidence. Each review includes
-the verified ROC-AUC, recall, class balance, drift status, governance run ID, and
-artifact status from the current pipeline run.
-
-Behavior:
-- When a valid Groq API key is configured via `.env`, the agent builds a structured
-  evidence context and passes it to the LLM as the system prompt.
-- When no key is present or the API is unavailable, the agent produces a grounded
-  local fallback advisory using the same evidence context.
-- Both paths cite actual model evidence values; neither produces generic commentary.
-
-**Important limitations:**
-
-The compliance output is advisory and illustrative. It does not constitute regulatory
-approval, regulatory certification, or a production compliance determination.
-The LLM prompt is grounded in local validation evidence as of Phase 5B.6C.
-The agent does not have access to live production data or regulatory databases.
-
-Reference documents:
-- `docs/sr11_7_summary.md` -- Federal Reserve SR 11-7 model risk management principles
-- `docs/basel_guidelines_summary.md` -- Basel IV model validation scope and standards
-
-Groq API key setup: copy `.env.example` to `.env` and add your key. Never commit `.env`.
+- Tracking how feature attribution shifts across model versions
+- Identifying whether a new submission behaves similarly to previously validated models
+- Building a model lineage record across validation cycles
 
 ---
 
 ## Drift Monitoring
 
-The Drift Monitor Agent applies the Kolmogorov-Smirnov two-sample test to each numeric
-feature, comparing the reference dataset against an incoming dataset. Features where
-the KS p-value falls below the 0.05 threshold are flagged as drifted.
+The DriftMonitorAgent applies the Kolmogorov-Smirnov two-sample test to each numeric
+feature, comparing a reference dataset to an incoming dataset. Features with a p-value
+below 0.05 are flagged as drifted.
 
-A simulated drift dataset is included at `data/drift_test/incoming_drifted_data.csv`.
-It was generated by inflating `annual_inc` and shifting `loan_amnt` distributions, and
-by dropping `int_rate`. The drift report confirms detection of drift in `annual_inc`
-and `loan_amnt` under these simulated conditions.
+A simulated drift dataset (`data/drift_test/incoming_drifted_data.csv`) was generated
+by inflating `annual_inc` and shifting `loan_amnt` distributions. Under simulated
+conditions, both features confirmed drift with p-value = 0.0.
 
 Drift results are written to `data/validation_outputs/drift_report.json` and
-visualized in the Streamlit dashboard Drift Detection page.
-
-Planned product module: drift-triggered automatic revalidation, where a detected
-drift event initiates a new end-to-end validation pipeline run with a change event
-log entry.
+visualized in the Streamlit dashboard Drift Detection page. This is a local validation
+signal; it does not represent live production monitoring.
 
 ---
 
-## How to Run Locally
+## Governance Evidence
 
-**1. Set up environment**
+Each pipeline run writes a structured JSON validation-run record:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Linux/macOS
-.venv\Scripts\activate         # Windows
-pip install -r requirements.txt
-```
+- `data/governance/validation_runs/{run_id}.json` for each individual run
+- `data/governance/latest_validation_run.json` as a pointer to the most recent run
 
-**2. Configure environment variables**
-
-```bash
-cp .env.example .env
-# Open .env and add your Groq API key if using the compliance agent.
-# The pipeline runs without a key using the fallback compliance response.
-```
-
-Never commit `.env`. It is excluded from git by `.gitignore`.
-
-**3. Prepare sample data**
-
-The cleaned sample (5,000 rows) is included at
-`data/raw_data/lending_club_clean_sample.csv`.
-
-To regenerate from the full LendingClub dataset:
-```bash
-python create_sample_data.py
-```
-
-To regenerate the simulated drift dataset:
-```bash
-python simulate_drift.py
-```
-
-**4. Run the CLI pipeline**
-
-```bash
-python main.py
-```
-
-This runs all seven agents, writes validation outputs to `data/validation_outputs/`,
-and writes verified metrics to `docs/evidence/`.
-
-**5. Run the interactive dashboard**
-
-```bash
-streamlit run streamlit_app.py
-```
-
-Opens an 8-page validation dashboard in the browser:
-
-| Page | Content |
+| Record Field | Description |
 |---|---|
-| 1. Upload and Preview | CSV upload, column validation, data filtering |
-| 2. Overview | Portfolio summary, loan distribution, grade breakdown |
-| 3. Performance | ROC curve, threshold slider, confusion matrix |
-| 4. Explainability | SHAP global importance, nearest historical models |
-| 5. Compliance | LLM compliance checklist and executive summary |
-| 6. Drift | KS drift detection by feature, pie chart, table |
-| 7. Export | PDF report generation with selectable sections |
-| 8. Compare Models | Upload a second model and compare metrics side by side |
+| `validation_run_id` | Unique ID: `vrun_YYYYMMDD_HHMMSS_xxxxxxxx` |
+| `created_at_utc` | ISO 8601 UTC timestamp |
+| `metrics_snapshot` | ROC-AUC, accuracy, precision, recall, F1 |
+| `drift_status` | Drift detected flag, drifted feature list |
+| `compliance_status` | Compliance advisory source and summary |
+| `artifact_status` | Existence and size of each output artifact |
+| `reviewer_status` | Placeholder: `pending_review` |
+| `risk_flags` | Auto-populated flags such as drift warnings |
+| `claim_safety_note` | Scoped system boundary note |
+
+This is an MCP-style validation-run traceability prototype. Records are local-only
+and excluded from version control.
+
+API access: `GET /governance/latest` and `GET /governance/history`.
 
 ---
 
-## FastAPI Local Service Boundary
+## Grounded Advisory Compliance Review
 
-AgentX exposes a local REST API implemented with FastAPI. This boundary provides
-programmatic access to validation workflows and evidence for development and
-portfolio integration testing. It is not a production deployment and does not
-constitute regulatory approval.
+The ComplianceAgent builds a structured evidence context before each compliance review.
+The context includes actual values from the current run: verified ROC-AUC, accuracy,
+recall, class balance, drift status, governance run ID, artifact inventory, and
+benchmark summary.
 
-**Start the API server:**
+When a Groq API key is configured, the evidence context is injected into the LLM
+system prompt. The LLM is instructed to cite specific evidence values, not produce
+generic commentary.
+
+When the Groq API is unavailable, a grounded local fallback advisory is generated
+using the same evidence context. Both paths produce a structured checklist referencing
+SR 11-7 and Basel validation principles with actual model values cited.
+
+The compliance output is advisory only. It does not constitute regulatory approval,
+regulatory certification, or a production compliance determination. Reference frameworks
+are included at `docs/sr11_7_summary.md` and `docs/basel_guidelines_summary.md`.
+
+---
+
+## MLflow Validation Tracking
+
+Each pipeline run logs to a local MLflow file store (`mlruns/`) under the experiment
+`agentx_risk_validation`:
+
+| Category | Logged Items |
+|---|---|
+| Metrics (5) | roc_auc, accuracy, precision, recall, f1_score |
+| Parameters (8) | dataset_rows, feature_count, model_type, target, class_balance, test_size, random_state, validation_run_id |
+| Artifacts (up to 8) | verified_metrics.json, verified_metrics.md, benchmark_results.json, benchmark_report.md, shap_summary.png, governance record, compliance output, drift report |
+
+Tracking URI uses `Path.as_uri()` to produce a `file:///` URI, required on Windows.
+Tracking failure is caught and does not stop the pipeline.
+
+`mlruns/` and `mlartifacts/` are excluded from git. This is local development tracking
+only. No remote server, no model registry.
+
+---
+
+## Audit Pack Generation
+
+Each pipeline run generates a local audit pack at `reports/audit_pack/`:
+
+| Output | Format | Library |
+|---|---|---|
+| `audit_pack.md` | Markdown | stdlib |
+| `audit_pack.html` | HTML with embedded CSS | markdown2 |
+| `audit_pack.pdf` | PDF | fpdf2 (pure Python) |
+| `audit_pack_context.json` | Machine-readable context | stdlib |
+
+The audit pack includes: verified metrics, dataset summary, drift status, compliance
+advisory summary, governance run ID, benchmark summary, MLflow tracking status,
+limitations, and a scope note.
+
+PDF generation uses fpdf2 with no system binary dependency. No pdfkit or wkhtmltopdf
+required. Audit pack outputs are excluded from git.
+
+---
+
+## API Surface
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/health` | System liveness and file availability check |
+| GET | `/metrics` | Verified model performance metrics from evidence file |
+| GET | `/evidence` | Evidence file inventory and artifact status |
+| POST | `/validate` | Run the full validation pipeline |
+| GET | `/governance/latest` | Most recent validation-run governance record |
+| GET | `/governance/history` | List of recent validation-run summaries |
+
+**Start the API:**
 
 ```bash
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
-**Endpoints:**
-
-| Method | Path | Description | Notes |
-|---|---|---|---|
-| GET | /health | Service liveness check | Fast; no pipeline; returns system name, version, file availability |
-| GET | /metrics | Read verified model metrics from docs/evidence/verified_metrics.json | Returns 503 if metrics file not yet generated (run `python main.py` first) |
-| GET | /evidence | List evidence files and artifact status | Fast; no pipeline; includes governance_available flag |
-| POST | /validate | Run the full validation pipeline | 10-30 seconds; returns metrics, artifact list, warnings |
-| GET | /governance/latest | Latest validation-run governance record | Returns 503 if no pipeline run yet |
-| GET | /governance/history | List of recent validation-run summaries | Always 200; empty list if no records |
-
-**Example -- health check:**
+**Health check:**
 
 ```bash
 curl http://localhost:8000/health
 ```
 
 ```json
-{"status": "ok", "system": "AgentX Risk Validator", "version": "1.0.0", "metrics_available": true, "evidence_available": true}
+{"status": "ok", "system": "AgentX Risk Validator", "version": "1.0.0", "metrics_available": true}
 ```
 
-**Example -- trigger validation:**
+**Trigger validation:**
 
 ```bash
 curl -X POST http://localhost:8000/validate \
@@ -358,51 +402,187 @@ curl -X POST http://localhost:8000/validate \
 ```
 
 Set `run_compliance_agent` to `true` when `GROQ_API_KEY` is configured. The pipeline
-falls back to a cached compliance response when the key is absent.
+uses the grounded fallback advisory when the key is absent.
 
-All six endpoints are tested in `tests/test_api.py` (41 tests). See `api/` for
-schemas and service functions, `docs/evidence/api_boundary_report.md` for the
-API boundary implementation report, and `docs/evidence/governance_evidence_report.md`
-for the governance layer documentation.
+All six endpoints are covered by 41 tests in `tests/test_api.py`.
 
 ---
 
-## Docker
+## Benchmark Evidence
 
-AgentX can be built and run as a Docker container for reproducible local development.
-The container serves the FastAPI boundary on port 8000.
+| Measurement | Median | Notes |
+|---|---|---|
+| GET /health | ~2.0 ms | In-process TestClient, 30 iterations |
+| GET /metrics | ~2.6 ms | In-process TestClient, 30 iterations |
+| GET /evidence | ~4.3 ms | In-process TestClient, 30 iterations |
+| POST /validate | ~2,430 ms | Full 7-agent pipeline per call, 3 iterations |
+| Pipeline direct | ~2,470 ms | Full pipeline including SHAP, FAISS, and drift |
+| Docker smoke test | Passed | GET /health returns `status: ok`; GET /metrics returns ROC-AUC 0.6776 |
 
-**Build:**
+These are local development measurements taken on Windows 11 with Python 3.13.1 and
+an Intel Core Ultra processor. They reflect in-process TestClient calls with no network
+overhead. They are not cloud, container, or production latency figures.
 
-```bash
-docker build -t agentx-risk-validator .
-```
-
-**Run:**
-
-```bash
-docker run --rm -p 8000:8000 agentx-risk-validator
-```
-
-**Run with Groq API key for compliance agent:**
-
-```bash
-docker run --rm -p 8000:8000 --env-file .env agentx-risk-validator
-```
-
-The `.env` file is excluded from the container image via `.dockerignore`. Generated
-artifacts (reports, logs) are written to the container filesystem and are ephemeral
-unless a volume is mounted.
-
-This is a local development container. It is not published to any registry and is
-not a production deployment.
+Machine-readable results: `docs/evidence/benchmark_results.json`.
+Human-readable report: `docs/evidence/benchmark_report.md`.
 
 ---
 
-## Benchmark
+## Test Coverage
 
-AgentX includes a benchmark script that measures in-process local development
-performance for all four FastAPI endpoints and the full pipeline.
+268 fast tests passing, 0 failures.
+
+| Test File | Tests | Coverage Area |
+|---|---|---|
+| `test_config.py` | 10 | Path constants, PROJECT_ROOT derivation |
+| `test_data_pipeline.py` | 11 | Preprocessing, class balance, feature count |
+| `test_model_pipeline.py` | 14 | Training, Pipeline structure, ROC-AUC regression guard |
+| `test_agents.py` | 36 | All 7 agents, grounded compliance tests |
+| `test_artifacts.py` | 18 | Artifact existence and schema validation |
+| `test_api.py` | 41 | All 6 endpoints, governance endpoint tests |
+| `test_benchmark_script.py` | 16 | Benchmark imports, output file schema |
+| `test_governance.py` | ~60 | Governance utility functions, write/load round-trips |
+| `test_compliance_context.py` | ~39 | Context builder functions, no-secrets assertions |
+| `test_mlflow_tracking.py` | 25 | MLflow configure, log, artifacts, summary |
+| `test_audit_pack.py` | 31 | Audit context, MD/HTML/PDF generation, graceful degradation |
+| `test_main_smoke.py` | 3 | Full pipeline subprocess smoke (marked slow, excluded from fast suite) |
+
+Run the fast suite:
+
+```bash
+python -m pytest -m "not slow"
+```
+
+ROC-AUC 0.6776 is locked as a numerical regression guard in `test_api.py` and
+`test_governance.py`. If a code change produces a different AUC, these tests fail.
+
+---
+
+## Engineering Decisions
+
+**sklearn Pipeline for preprocessing consistency:** StandardScaler is fit on the
+training split and stored inside the Pipeline artifact. This eliminates the risk of
+scaler refit on test data, which was producing inconsistent metrics in earlier iterations.
+The root cause analysis is documented in `docs/evidence/metric_inconsistency_diagnosis.md`.
+
+**Centralized path management via config.py:** All file paths are defined as
+`pathlib.Path` constants in `utils/config.py`. Agent, API, and utility code imports
+from config rather than using hardcoded strings, keeping the project portable across
+machines and test environments.
+
+**Structured logging:** All pipeline steps use Python's `logging` module with a
+consistent format. Log output is structured and suppressible in tests without patching
+print statements.
+
+**FastAPI added after test suite:** The API boundary was introduced after the core
+pipeline had test coverage. API service functions are thin adapters over existing
+pipeline functions; no agent logic is duplicated in the API layer.
+
+**MLflow integrated with graceful degradation:** Step 13 of the pipeline is wrapped
+in a try/except block. MLflow tracking failures log a warning and append to the result
+warnings list without stopping the pipeline. This allows the system to run in
+environments without MLflow configured.
+
+**Audit pack added as the final pipeline step:** The audit pack assembles evidence
+from all prior pipeline steps. Introducing it as Step 14 ensures the governance record,
+compliance output, and MLflow run are all available for inclusion in the same pass.
+
+**Generated artifacts excluded from git:** `data/`, `reports/`, `mlruns/`, and
+`mlartifacts/` are excluded via `.gitignore`. This keeps the repository focused on
+source and evidence documentation while preventing large binary and generated files
+from accumulating in git history.
+
+---
+
+## System Scope and Boundaries
+
+AgentX is designed as a local model validation and governance evidence system. It
+demonstrates multi-agent validation, explainability, drift monitoring, FastAPI serving,
+Docker packaging, benchmark evidence, governance run records, grounded advisory
+compliance review, MLflow tracking, and audit-pack generation.
+
+The current implementation operates on a 5,000-row public dataset sample. It is not
+positioned as a production regulatory approval platform, live banking deployment, or
+externally deployed enterprise service. Detailed scope notes are maintained in
+`docs/evidence/claim_safety.md`.
+
+---
+
+## Repository Structure
+
+```
+api/                  FastAPI boundary: schemas, service adapters, route handlers
+agents/               Seven validation agents
+utils/                Config, logging, governance, compliance context, MLflow, audit pack
+tests/                268-test suite organized by module
+scripts/              Benchmark script
+docs/
+  evidence/           Engineering evidence, verified metrics, benchmark, governance,
+                      compliance, MLflow, audit pack, system inventory, and gap reports
+  sr11_7_summary.md
+  basel_guidelines_summary.md
+main.py               CLI pipeline entry point (run_agentx_pipeline callable)
+streamlit_app.py      8-page interactive validation dashboard
+Dockerfile            Docker build (python:3.11-slim, port 8000)
+requirements.txt
+.env.example          Safe placeholder configuration
+```
+
+`data/`, `reports/`, `mlruns/`, and `mlartifacts/` are excluded from git.
+
+---
+
+## Getting Started
+
+**Create environment:**
+
+```bash
+python -m venv .venv
+source .venv/bin/activate      # Linux / macOS
+.venv\Scripts\activate         # Windows
+pip install -r requirements.txt
+```
+
+**Configure environment variables:**
+
+```bash
+cp .env.example .env
+# Add GROQ_API_KEY to .env if using the compliance agent.
+# The pipeline runs without a key using the grounded fallback advisory.
+```
+
+Never commit `.env`. It is excluded from git by `.gitignore`.
+
+**Run the CLI validation pipeline:**
+
+```bash
+python main.py
+```
+
+Runs all seven agents, writes validation outputs to `data/validation_outputs/`,
+writes governance record to `data/governance/`, logs an MLflow run to `mlruns/`,
+and generates an audit pack to `reports/audit_pack/`.
+
+**Run the FastAPI service:**
+
+```bash
+uvicorn api.main:app --host 0.0.0.0 --port 8000
+```
+
+**Run the Streamlit dashboard:**
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Opens an 8-page validation interface: Upload, Overview, Performance, Explainability,
+Compliance, Drift, Export, and Compare Models.
+
+**Run the test suite:**
+
+```bash
+python -m pytest -m "not slow"
+```
 
 **Run the benchmark:**
 
@@ -410,176 +590,58 @@ performance for all four FastAPI endpoints and the full pipeline.
 python scripts/benchmark_agentx.py
 ```
 
-Outputs are saved to:
-- `docs/evidence/benchmark_results.json` -- machine-readable results
-- `docs/evidence/benchmark_report.md` -- human-readable report with disclaimer
+Outputs: `docs/evidence/benchmark_results.json` and `docs/evidence/benchmark_report.md`.
 
-**Measured results (local Windows machine, Python 3.13.1, Intel Core Ultra):**
+**Run the Docker container:**
 
-| Measurement | Median | P95 | N |
-|---|---|---|---|
-| GET /health (in-process) | 1.9 ms | 2.4 ms | 30 |
-| GET /metrics (in-process) | 2.0 ms | 2.9 ms | 30 |
-| GET /evidence (in-process) | 2.5 ms | 2.9 ms | 30 |
-| POST /validate (full pipeline) | 2,399 ms | -- | 3 |
-| Pipeline direct call | 2,340 ms | -- | 3 |
-
-**Important disclaimer:**
-
-These measurements were captured on a local development machine and should not be
-interpreted as production latency or cloud deployment performance. They reflect
-in-process TestClient calls (no network) and are not network round-trip measurements.
-No concurrency testing was performed.
+```bash
+docker build -t agentx-risk-validator .
+docker run --rm -p 8000:8000 agentx-risk-validator
+# With Groq key for compliance agent:
+docker run --rm -p 8000:8000 --env-file .env agentx-risk-validator
+```
 
 ---
 
-## Evidence Files
+## Evidence Index
 
-| File | Description |
+| Document | Content |
 |---|---|
-| `docs/evidence/verified_metrics.md` | Verified baseline metrics, Phase 5B.1 |
-| `docs/evidence/verified_metrics.json` | Machine-readable version of the above |
-| `docs/evidence/api_boundary_report.md` | FastAPI boundary, Docker, and API test summary, Phase 5B.5 |
-| `docs/evidence/benchmark_results.json` | Machine-readable benchmark timing results, Phase 5B.6A |
-| `docs/evidence/benchmark_report.md` | Human-readable benchmark report with disclaimer and limitations, Phase 5B.6A |
-| `docs/evidence/governance_evidence_report.md` | Local governance evidence layer, validation-run record schema, API endpoints, Phase 5B.6B |
-| `docs/evidence/compliance_grounding_report.md` | Compliance agent grounding upgrade, evidence context fields, fallback behavior, Phase 5B.6C |
-| `docs/evidence/mlflow_tracking_report.md` | Local MLflow tracking configuration, metrics/params/artifacts logged, verified run, limitations, Phase 5B.8 |
-| `docs/evidence/audit_pack_report.md` | Portable audit pack design, formats generated, fpdf2/markdown2 approach, GAP-014 resolution, Phase 5B.9 |
-| `docs/evidence/system_inventory.md` | Full file-by-file inventory of the codebase |
-| `docs/evidence/architecture_audit.md` | Agent layer, data flow, architectural risk analysis |
-| `docs/evidence/engineering_gap_report.md` | 15 engineering gaps with priority and status |
-| `docs/evidence/metric_inconsistency_diagnosis.md` | Root cause of prior contradictory metrics |
-| `docs/evidence/claim_safety.md` | What can be stated now vs what requires future evidence |
-| `docs/evidence/security_review.md` | Credential and data risk assessment |
-| `docs/evidence/upgrade_plan.md` | L2 upgrade wave plan with completion status |
-| `docs/evidence/portfolio_positioning_draft.md` | Claim-safe portfolio framing |
-| `docs/sr11_7_summary.md` | SR 11-7 model risk management reference |
-| `docs/basel_guidelines_summary.md` | Basel IV model validation reference |
-| `reports/validation_report.md` | Generated validation report (excluded from git) |
-
----
-
-## Security Notes
-
-- `.env` is excluded from git by `.gitignore`. It must never be committed.
-- `.env.example` contains only placeholder values and is safe to commit.
-- Model artifacts (`*.pkl`, `*.joblib`) are excluded from git.
-- The full LendingClub dataset file is excluded from git.
-- Generated reports (PDF, HTML, MD) are excluded from git.
-- Git initialization is intentionally deferred until the Groq API key in `.env`
-  has been rotated by the owner at `console.groq.com`.
-
----
-
-## Current Limitations
-
-These are engineering boundaries and active upgrade targets, not design defects:
-
-| Limitation | Status |
-|---|---|
-| Low recall on default class | Known baseline limitation; class-weighted and tree-based models planned |
-| Compliance output is advisory only | By design; grounded in local validation evidence but not a regulatory determination |
-| Docker image is local only | Not published to any registry; not a production deployment |
-| MLflow tracking is local file-based only | No remote server, no model registry, no production MLflow deployment |
-| Audit pack is local evidence only | Not a regulatory audit record; not a regulatory determination |
-| No regulatory approval | Not claimed; regulatory reference docs are informational |
+| `docs/evidence/final_evidence_consolidation_report.md` | Complete engineering wave summary and current architecture |
+| `docs/evidence/portfolio_summary.md` | System capability and evidence summary |
+| `docs/evidence/verified_metrics.md` | Locked baseline metrics with confusion matrix |
+| `docs/evidence/benchmark_report.md` | Local endpoint and pipeline latency measurements |
+| `docs/evidence/governance_evidence_report.md` | Governance record schema and API endpoints |
+| `docs/evidence/compliance_grounding_report.md` | Compliance agent grounding design and evidence sources |
+| `docs/evidence/mlflow_tracking_report.md` | MLflow configuration, metrics/params/artifacts logged per run |
+| `docs/evidence/audit_pack_report.md` | Audit pack design, formats, and GAP-014 resolution |
+| `docs/evidence/claim_safety.md` | Detailed scope and system boundary notes |
 
 ---
 
 ## Engineering Roadmap
 
-### Implemented
+**Completed:**
 
-- Six-agent validation pipeline (data, performance, explainability, compliance, drift, feedback memory)
-- Streamlit validation dashboard with 8 pages
-- SHAP feature attribution and summary plot generation
-- FAISS vector memory for model similarity and lineage tracking
-- KS test drift detection with simulated drift dataset
-- Compliance agent with Groq LLM and deterministic fallback
-- sklearn Pipeline artifact (StandardScaler + LogisticRegression, saved with scaler)
-- Stratified train/test split with fixed random state
-- Verified baseline metrics documented in `docs/evidence/`
-- Security hygiene: `.gitignore`, `.env.example`, `.dockerignore`, credential protection
-- Markdown and PDF validation report generation
-- Model comparison page in Streamlit dashboard
-- `utils/config.py` for centralized path management (Phase 5B.3)
-- Structured logging via Python `logging` module (Phase 5B.3)
-- 268-passing pytest test suite with ROC-AUC regression guard at 0.6776 (Phases 5B.4-5B.9)
-- FastAPI local service boundary: GET /health, GET /metrics, GET /evidence, POST /validate (Phase 5B.5)
-- GET /governance/latest and GET /governance/history API endpoints (Phase 5B.6B)
-- Docker image: `agentx-risk-validator` (python:3.11-slim, port 8000) (Phase 5B.5)
-- Benchmark script with local endpoint and pipeline measurements (Phase 5B.6A)
-- Local governance evidence layer: validation-run record with run ID, metrics snapshot, drift status, compliance status, risk flags, and claim-safety note (Phase 5B.6B)
-- Compliance agent grounded in local validation evidence: actual ROC-AUC, recall, class balance, drift status, and governance run ID passed to LLM prompt and fallback advisory (Phase 5B.6C)
-- Local MLflow file-based tracking on each pipeline run: experiment `agentx_risk_validation`, 5 metrics, 8 parameters, 8 artifacts logged per run; tracking failure does not stop pipeline (Phase 5B.8)
-- Local audit pack generation (Markdown, HTML, PDF) using `fpdf2` and `markdown2` (pure Python, no system binary required); covers metrics, drift, compliance, governance, MLflow status, and claim-safety note (Phase 5B.9)
+- Security hygiene and metric pipeline correction (Phase 5B.1)
+- Evidence documentation and README (Phase 5B.2)
+- Config-driven paths and structured logging (Phase 5B.3)
+- 268-test suite with ROC-AUC regression guard (Phases 5B.4 to 5B.9)
+- FastAPI boundary and Docker packaging (Phase 5B.5)
+- Local benchmark evidence with machine-readable output (Phase 5B.6A)
+- Governance validation-run records and API endpoints (Phase 5B.6B)
+- Evidence-grounded compliance advisory with local fallback (Phase 5B.6C)
+- Git initialization and evidence consolidation (Phases 5B.6D to 5B.7)
+- Local MLflow validation tracking with graceful degradation (Phase 5B.8)
+- Portable audit pack generation in MD, HTML, and PDF (Phase 5B.9)
 
-### Planned Product Modules
+**Possible extensions:**
 
-| Module | Purpose |
-|---|---|
-| Benchmark per-agent timing | Timing broken down by individual agent step within a single run |
-| MCP governance log | Extend local governance layer to a full model-change event log |
-| PDF audit pack generation | Structured multi-section report with signature block |
-| Drift-triggered revalidation | Automated pipeline re-run when drift threshold is exceeded |
-| Class-weighted and XGBoost models | Improved recall on the default class |
-| Portfolio case study | After Wave 6 evidence is complete |
-
----
-
-## Claim Safety
-
-**Safe to state:**
-
-- Local multi-agent model validation workflow, fully runnable
-- SHAP-based explainability with FAISS vector memory
-- Verified baseline ROC-AUC of 0.6776 (Phase 5B.1, reproducible)
-- Streamlit dashboard with performance, explainability, compliance, and drift pages
-- Security hygiene: `.gitignore`, `.env.example`, and `.dockerignore` in place
-- Active engineering roadmap toward governance-grade validation tooling
-- Regulatory framework awareness: SR 11-7 and Basel IV reference docs included
-- FastAPI local service boundary with six endpoints, covered by 41 pytest tests
-- Docker-packaged for reproducible local execution (python:3.11-slim, port 8000)
-- 212 passing pytest tests including agent unit tests, pipeline integration, API boundary, benchmark, governance, and compliance context tests
-- Benchmark script with measured local endpoint and pipeline latencies saved as machine-readable JSON evidence
-- Local governance evidence layer: structured JSON record per run, GET /governance/latest and GET /governance/history API endpoints, 60+ governance unit tests
-- Compliance agent grounded in actual model evidence: verified ROC-AUC, recall, class balance, drift status, and governance run ID used in advisory review
-- Local MLflow file tracking: experiment agentx_risk_validation; 5 metrics, 8 params, 8 artifacts per run; mlruns/ excluded from git
-- Local audit pack (MD, HTML, PDF) via fpdf2 and markdown2; no system binary; reports/audit_pack/ excluded from git; all 15 engineering gaps now closed
-
-**Not safe to state:**
-
-- Production validation platform
-- Regulatory-approved system
-- Enterprise deployed
-- Used by customers or financial institutions
-- Live banking system
-- High-recall default detection system (recall is 0.037 at baseline)
-- Fully automated model approval
-- Complete model risk management platform
-
----
-
-## Original Vision Alignment
-
-AgentX is being built toward a model-risk validation workflow informed by banking
-governance needs. The system is designed with awareness of:
-
-- SR 11-7 model risk management principles: independent validation, conceptual soundness,
-  performance monitoring, governance and inventory
-- Basel-style risk governance: discriminatory power assessment, stability testing,
-  explainability, audit-ready documentation
-- Validation consistency: reproducible outputs from a fixed pipeline with documented
-  preprocessing, split strategy, and random state
-- Audit-ready evidence: structured JSON outputs, Markdown reports, and dedicated
-  evidence docs under `docs/evidence/`
-- Human-in-the-loop model review: AgentX produces structured first-pass evidence;
-  final validation judgment remains with the human reviewer
-
-No regulatory compliance or approval is claimed. The system demonstrates how an
-AI-assisted validation workflow can be structured to support, not replace, the
-model risk management process.
+- Class-weighted LogisticRegression or XGBoost for improved recall on the default class
+- Richer PDF audit pack styling with table rendering
+- Drift-triggered automatic revalidation workflow
+- Hosted demo deployment after full security review
+- Portfolio case study with evidence linkage
 
 ---
 
@@ -587,31 +649,16 @@ model risk management process.
 
 LendingClub Loan Data, 2007-2018Q4.
 Source: Kaggle / LendingClub public loan dataset.
-License: Public domain research use.
 Filtered to binary classification: Fully Paid vs Charged Off.
-Sample: 5,000 rows drawn with `random_state=42`.
-
-No personally identifiable information is present in the 12 features used.
+Sample: 5,000 rows, random_state=42.
+No personally identifiable information present in the 12 features used.
 
 ---
 
-## Key Dependencies
+## Author
 
-| Package | Purpose |
-|---|---|
-| scikit-learn | Model pipeline, preprocessing, metrics |
-| shap | Feature attribution and explainability |
-| faiss-cpu | Vector memory and similarity search |
-| scipy | Kolmogorov-Smirnov drift test |
-| streamlit | Interactive validation dashboard |
-| groq | LLM compliance agent |
-| fpdf2 | In-browser PDF report generation |
-| plotly | Interactive charts in dashboard |
-| python-dotenv | Environment variable management |
-| joblib | Model artifact serialization |
-| fastapi | REST API boundary for local validation service |
-| uvicorn | ASGI server for FastAPI |
-| httpx | HTTP client for FastAPI TestClient in tests |
-| pydantic | Request/response validation and serialization |
+**Ijaz Kakkod**
+Machine Learning Systems | Explainable AI | Model Governance
 
-Full list: `requirements.txt`
+[![GitHub](https://img.shields.io/badge/GitHub-IjazKakkodDS-181717?logo=github)](https://github.com/IjazKakkodDS)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin)](https://www.linkedin.com/in/ijazkakkod)

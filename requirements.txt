@@ -1,0 +1,48 @@
+# ===== Testing =====
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# ===== Core ML & Data =====
+pandas>=1.5.3
+numpy>=1.23.5
+scikit-learn>=1.3.0
+joblib>=1.3.0
+matplotlib>=3.7.0
+seaborn>=0.12.2
+
+# ===== Explainability =====
+shap>=0.42.1
+
+# ===== Drift Detection =====
+scipy>=1.11.0
+alibi-detect==0.12.0  # Corrected version
+
+# ===== FAISS for SHAP vector memory =====
+faiss-cpu==1.7.4
+
+# ===== Streamlit Frontend =====
+streamlit>=1.28.0
+Pillow>=10.0.0
+kaleido>=0.2.1
+
+# ===== Plotly for Interactive Charts =====
+plotly>=5.18.0
+
+# ===== PDF & Report Generation =====
+fpdf2>=1.7.6
+python-docx>=0.8.11
+
+# ===== Compliance Agent (LLM/RAG) =====
+groq==0.5.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+openai>=1.12.0
+
+# ===== API Service Boundary =====
+fastapi>=0.110.0
+uvicorn>=0.29.0
+httpx>=0.27.0
+pydantic>=2.0.0
+
+# ===== MLflow (Optional Model Tracking & Governance) =====
+mlflow>=2.12.0

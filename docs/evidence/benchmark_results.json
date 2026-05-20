@@ -1,0 +1,146 @@
+{
+  "benchmark_date": "2026-05-20T16:49:28.376768",
+  "disclaimer": "These measurements were captured on a local development machine and should not be interpreted as production latency or cloud deployment performance.",
+  "environment": {
+    "platform": "Windows",
+    "platform_version": "10.0.26200",
+    "python": "3.13.1",
+    "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+    "machine": "AMD64"
+  },
+  "benchmark_config": {
+    "n_fast_iterations": 30,
+    "n_validate_iterations": 3,
+    "timing_function": "time.perf_counter()",
+    "units": "milliseconds"
+  },
+  "endpoints": {
+    "GET /health": {
+      "n_iterations": 30,
+      "median_ms": 1.946,
+      "mean_ms": 2.311,
+      "min_ms": 1.817,
+      "max_ms": 7.729,
+      "p95_ms": 2.832,
+      "method": "GET",
+      "path": "/health",
+      "status_codes": [
+        200
+      ],
+      "success": true
+    },
+    "GET /metrics": {
+      "n_iterations": 30,
+      "median_ms": 2.62,
+      "mean_ms": 2.56,
+      "min_ms": 1.939,
+      "max_ms": 3.64,
+      "p95_ms": 3.199,
+      "method": "GET",
+      "path": "/metrics",
+      "status_codes": [
+        200
+      ],
+      "success": true
+    },
+    "GET /evidence": {
+      "n_iterations": 30,
+      "median_ms": 4.318,
+      "mean_ms": 4.205,
+      "min_ms": 2.711,
+      "max_ms": 6.129,
+      "p95_ms": 5.6,
+      "method": "GET",
+      "path": "/evidence",
+      "status_codes": [
+        200
+      ],
+      "success": true
+    },
+    "POST /validate": {
+      "n_iterations": 3,
+      "median_ms": 2429.944,
+      "mean_ms": 4379.954,
+      "min_ms": 2353.678,
+      "max_ms": 8356.241,
+      "p95_ms": 2429.944,
+      "method": "POST",
+      "path": "/validate",
+      "status_codes": [
+        200
+      ],
+      "success": true
+    }
+  },
+  "pipeline_direct": {
+    "n_iterations": 3,
+    "median_ms": 2467.189,
+    "mean_ms": 2457.894,
+    "min_ms": 2414.121,
+    "max_ms": 2492.373,
+    "p95_ms": 2467.189,
+    "flags": {
+      "run_compliance": false,
+      "run_drift": true,
+      "regenerate_reports": true
+    },
+    "success": true
+  },
+  "artifacts": {
+    "total_checked": 8,
+    "present": 8,
+    "non_empty": 8,
+    "all_present": true,
+    "all_non_empty": true,
+    "files": [
+      {
+        "path": "data\\validation_outputs\\data_validation.json",
+        "exists": true,
+        "size_bytes": 2660,
+        "non_empty": true
+      },
+      {
+        "path": "data\\validation_outputs\\performance_metrics.json",
+        "exists": true,
+        "size_bytes": 216,
+        "non_empty": true
+      },
+      {
+        "path": "data\\validation_outputs\\shap_summary.png",
+        "exists": true,
+        "size_bytes": 52730,
+        "non_empty": true
+      },
+      {
+        "path": "data\\validation_outputs\\drift_report.json",
+        "exists": true,
+        "size_bytes": 605,
+        "non_empty": true
+      },
+      {
+        "path": "data\\validation_outputs\\last_compliance.json",
+        "exists": true,
+        "size_bytes": 5753,
+        "non_empty": true
+      },
+      {
+        "path": "reports\\validation_report.md",
+        "exists": true,
+        "size_bytes": 6625,
+        "non_empty": true
+      },
+      {
+        "path": "docs\\evidence\\verified_metrics.json",
+        "exists": true,
+        "size_bytes": 1305,
+        "non_empty": true
+      },
+      {
+        "path": "docs\\evidence\\verified_metrics.md",
+        "exists": true,
+        "size_bytes": 1794,
+        "non_empty": true
+      }
+    ]
+  }
+}

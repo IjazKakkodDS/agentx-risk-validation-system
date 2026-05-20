@@ -1,0 +1,47 @@
+# Secrets
+.env
+
+# Version control
+.git/
+.gitignore
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Large data files (not needed at runtime -- sample is kept)
+data/raw_data/accepted_2007_to_2018Q4.csv
+
+# Generated binary/HTML/PDF reports (regenerated at runtime)
+reports/*.pdf
+reports/*.html
+
+# Logs (generated at runtime)
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE / OS
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak

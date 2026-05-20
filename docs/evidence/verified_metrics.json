@@ -1,0 +1,42 @@
+{
+  "dataset": "LendingClub public loan data (2007-2018Q4 sample)",
+  "source_file": "C:\\Users\\ijazk\\OneDrive\\Desktop\\D - Maddy_AI_Architect\\J - GitHub Master Portfolio\\ML_AI_Projects\\AgentX_Risk_Validator\\data\\raw_data\\lending_club_clean_sample.csv",
+  "total_rows": 5000,
+  "rows_after_preprocessing": 5000,
+  "feature_count": 12,
+  "target": "loan_status (0 = Fully Paid, 1 = Charged Off)",
+  "class_balance": {
+    "0": 0.8098,
+    "1": 0.1902
+  },
+  "train_rows": 4000,
+  "test_rows": 1000,
+  "model_type": "sklearn Pipeline: StandardScaler + LogisticRegression(max_iter=1000, random_state=42)",
+  "preprocessing": [
+    "Drop ID-like columns",
+    "Drop rows with missing loan_status",
+    "Encode loan_status to 0/1",
+    "Impute numeric columns with median",
+    "LabelEncode categorical columns",
+    "StandardScaler applied inside Pipeline (fit on train split only)"
+  ],
+  "train_test_split": "80/20, random_state=42, stratified on loan_status",
+  "metrics": {
+    "accuracy": 0.804,
+    "precision": 0.35,
+    "recall": 0.0368,
+    "f1_score": 0.0667,
+    "roc_auc": 0.6776,
+    "confusion_matrix": [
+      [
+        797,
+        13
+      ],
+      [
+        183,
+        7
+      ]
+    ]
+  },
+  "run_timestamp": "2026-05-20T16:49:28.372500"
+}

@@ -1,0 +1,65 @@
+# === Secrets and environment ===
+.env
+.env.*
+!.env.example
+
+# === Python cache ===
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# === Virtual environments ===
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# === Jupyter ===
+.ipynb_checkpoints/
+*.ipynb
+
+# === Logs ===
+*.log
+logs/
+
+# === Model artifacts (large binary files) ===
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# === Large data files ===
+data/raw_data/accepted_2007_to_2018Q4.csv
+data/raw_data/*.csv
+data/incoming_models/
+data/validation_outputs/
+data/memory_index/
+data/model_memory/
+data/drift_test/
+data/governance/
+
+# === Report outputs ===
+reports/*.pdf
+reports/*.html
+reports/*.md
+
+# === OS artifacts ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Build artifacts ===
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo

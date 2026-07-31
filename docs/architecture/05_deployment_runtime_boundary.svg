@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" width="860" height="340" role="img" aria-labelledby="d5title d5desc">
+  <title id="d5title">Deployment and Runtime Boundary</title>
+  <desc id="d5desc">Inside the local or containerized runtime boundary, source code builds into a Docker image based on python:3.11-slim, runs as a container on port 8000, and is reachable through local host access. Outside the boundary, a separate muted node states that no hosted or production deployment exists today.</desc>
+  <defs>
+    <marker id="d5-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a5568" />
+    </marker>
+    <marker id="d5-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a93a3" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="860" height="340" fill="#f7f8fa" stroke="#d7dbe1" stroke-width="1" />
+  <rect x="0" y="0" width="860" height="56" fill="#161b26" />
+  <text x="24" y="35" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#f5f6f8">Deployment and Runtime Boundary</text>
+  <rect x="0" y="56" width="860" height="4" fill="#8c1f2b" />
+
+  <!-- Runtime boundary -->
+  <rect x="40" y="80" width="768" height="140" rx="6" fill="#ffffff" stroke="#1f2430" stroke-width="1.5" />
+  <text x="424" y="100" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="0.8" fill="#1f2430">LOCAL / CONTAINERIZED RUNTIME</text>
+
+  <rect x="64" y="130" width="165" height="64" rx="6" fill="#f7f8fa" stroke="#4a5568" stroke-width="1.5" />
+  <text x="146" y="167" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2430">Source Code</text>
+
+  <rect x="249" y="130" width="165" height="64" rx="6" fill="#f7f8fa" stroke="#4a5568" stroke-width="1.5" />
+  <text x="331" y="157" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2430">Docker Image</text>
+  <text x="331" y="175" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10.5" fill="#5b6370">python:3.11-slim</text>
+
+  <rect x="434" y="130" width="165" height="64" rx="6" fill="#f7f8fa" stroke="#4a5568" stroke-width="1.5" />
+  <text x="516" y="157" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#1f2430">Running Container</text>
+  <text x="516" y="175" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10.5" fill="#5b6370">port 8000</text>
+
+  <rect x="619" y="130" width="165" height="64" rx="6" fill="#f7f8fa" stroke="#4a5568" stroke-width="1.5" />
+  <text x="701" y="167" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#1f2430">Local Host Access</text>
+
+  <line x1="229" y1="162" x2="245" y2="162" stroke="#4a5568" stroke-width="2" marker-end="url(#d5-arrow)" />
+  <line x1="414" y1="162" x2="430" y2="162" stroke="#4a5568" stroke-width="2" marker-end="url(#d5-arrow)" />
+  <line x1="599" y1="162" x2="615" y2="162" stroke="#4a5568" stroke-width="2" marker-end="url(#d5-arrow)" />
+
+  <!-- Outside boundary: explicit non-claim -->
+  <line x1="424" y1="220" x2="424" y2="244" stroke="#8a93a3" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#d5-arrow-muted)" />
+  <rect x="254" y="248" width="340" height="50" rx="6" fill="#eef0f3" stroke="#8a93a3" stroke-width="1.5" stroke-dasharray="5,4" />
+  <text x="424" y="278" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#5b6370">No hosted / production deployment</text>
+</svg>

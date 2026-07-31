@@ -1,0 +1,7 @@
+flowchart TD
+    A[Validation Run Complete] --> B[Metrics Locked]
+    A --> C[Artifacts Verified]
+    B --> D[Governance JSON Record]
+    C --> D
+    D -. optional, graceful degradation .-> E[MLflow File Store]
+    D -. optional, graceful degradation .-> F["Audit Pack: MD / HTML / PDF"]

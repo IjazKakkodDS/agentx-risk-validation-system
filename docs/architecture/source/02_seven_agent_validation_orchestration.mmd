@@ -1,0 +1,7 @@
+flowchart LR
+    A["DataValidatorAgent<br/>data/validation_outputs/data_validation.json"] --> B["PerformanceAgent<br/>data/validation_outputs/performance_metrics.json"]
+    B --> C["ExplainabilityAgent<br/>data/validation_outputs/shap_summary.png"]
+    C --> D["DriftMonitorAgent<br/>data/validation_outputs/drift_report.json"]
+    D --> E["FeedbackMemoryAgent<br/>data/model_memory/"]
+    E --> F["ComplianceAgent<br/>data/validation_outputs/last_compliance.json"]
+    F --> G["ReportWriterAgent<br/>reports/validation_report.md"]

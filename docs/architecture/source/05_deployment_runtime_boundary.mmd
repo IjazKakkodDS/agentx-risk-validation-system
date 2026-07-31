@@ -1,0 +1,7 @@
+flowchart LR
+    subgraph Runtime[Local / Containerized Runtime]
+        A[Source Code] --> B["Docker Image<br/>python:3.11-slim"]
+        B --> C["Running Container<br/>port 8000"]
+        C --> D[Local Host Access]
+    end
+    D -.-> E[No hosted / production deployment]

@@ -1,0 +1,7 @@
+flowchart LR
+    A[Data and Model Artifacts] --> B[AgentX Validation Workflow]
+    B --> C[Evidence Outputs]
+    C -. pending_review .-> D
+    subgraph Human Authority Zone
+        D[Human Reviewer / Governance Review]
+    end

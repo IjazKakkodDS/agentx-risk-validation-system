@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 370" width="1060" height="370" role="img" aria-labelledby="d3title d3desc">
+  <title id="d3title">Service and Interface Architecture</title>
+  <desc id="d3desc">Three entry points, CLI, Streamlit, and FastAPI, converge into one AgentX Pipeline Core, which produces Evidence and Governance Outputs. Docker is not shown here; it is covered separately in the deployment and runtime boundary diagram.</desc>
+  <defs>
+    <marker id="d3-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a5568" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1060" height="370" fill="#f7f8fa" stroke="#d7dbe1" stroke-width="1" />
+  <rect x="0" y="0" width="1060" height="56" fill="#161b26" />
+  <text x="24" y="35" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#f5f6f8">Service and Interface Architecture</text>
+  <rect x="0" y="56" width="1060" height="4" fill="#8c1f2b" />
+
+  <!-- Entry Points group -->
+  <rect x="40" y="68" width="280" height="264" rx="6" fill="#eef0f3" stroke="#8a93a3" stroke-width="1.5" stroke-dasharray="5,4" />
+  <text x="180" y="86" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="0.8" fill="#5b6370">ENTRY POINTS</text>
+
+  <rect x="60" y="96" width="240" height="60" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="180" y="120" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">CLI</text>
+  <text x="180" y="138" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10.5" fill="#5b6370">python main.py</text>
+
+  <rect x="60" y="176" width="240" height="60" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="180" y="200" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Streamlit</text>
+  <text x="180" y="218" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10.5" fill="#5b6370">streamlit_app.py</text>
+
+  <rect x="60" y="256" width="240" height="60" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="180" y="280" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">FastAPI</text>
+  <text x="180" y="298" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10.5" fill="#5b6370">api/main.py</text>
+
+  <!-- Core -->
+  <rect x="420" y="155" width="220" height="90" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="530" y="195" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2430">AgentX Pipeline</text>
+  <text x="530" y="215" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2430">Core</text>
+
+  <!-- Output -->
+  <rect x="760" y="155" width="260" height="90" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="890" y="195" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2430">Evidence and</text>
+  <text x="890" y="215" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2430">Governance Outputs</text>
+
+  <!-- Convergence arrows -->
+  <line x1="300" y1="126" x2="416" y2="176" stroke="#4a5568" stroke-width="2" marker-end="url(#d3-arrow)" />
+  <line x1="300" y1="206" x2="416" y2="200" stroke="#4a5568" stroke-width="2" marker-end="url(#d3-arrow)" />
+  <line x1="300" y1="286" x2="416" y2="224" stroke="#4a5568" stroke-width="2" marker-end="url(#d3-arrow)" />
+
+  <!-- Core to output -->
+  <line x1="640" y1="200" x2="756" y2="200" stroke="#4a5568" stroke-width="2" marker-end="url(#d3-arrow)" />
+</svg>

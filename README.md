@@ -142,12 +142,9 @@ AgentX sits between model and data ingestion and the model review or approval di
 It accepts a credit portfolio dataset, executes the validation pipeline, and produces
 evidence outputs structured for human-in-the-loop review.
 
-```mermaid
-flowchart LR
-    A[Data and Model Artifacts] --> B[AgentX Validation Workflow]
-    B --> C[Evidence Outputs]
-    C --> D[Human Reviewer / Governance Review]
-```
+![Product Workflow and Human Review Boundary](docs/architecture/01_product_workflow_review_boundary.svg)
+
+*AgentX produces structured evidence; every run ends in `pending_review`, never an automated decision.*
 
 Outputs are not reviewed or approved automatically. The `reviewer_status` field in
 each governance record is set to `pending_review` on every run.
@@ -156,53 +153,29 @@ each governance record is set to `pending_review` on every run.
 
 ## Architecture
 
-### End-to-End Validation Lifecycle
+### Deployment and Runtime Boundary
 
-```mermaid
-flowchart TD
-    A[CSV Data Input] --> B[Preprocessing and Feature Encoding]
-    B --> C[Model Training Pipeline]
-    C --> D[Agent Layer - 7 Agents]
-    D --> E[Governance Record Written]
-    E --> F[MLflow Run Logged]
-    F --> G[Audit Pack Generated]
-    G --> H[FastAPI / Streamlit / CLI Surfaces]
-```
+![Deployment and Runtime Boundary](docs/architecture/05_deployment_runtime_boundary.svg)
+
+*AgentX runs locally or on a self-managed host through its supported interfaces; no hosted service exists today.*
 
 ### Agent Workflow
 
-```mermaid
-flowchart LR
-    A[DataValidatorAgent] --> B[PerformanceAgent]
-    B --> C[ExplainabilityAgent]
-    C --> D[DriftMonitorAgent]
-    D --> E[FeedbackMemoryAgent]
-    E --> F[ComplianceAgent]
-    F --> G[ReportWriterAgent]
-```
+![Seven-Agent Validation Orchestration](docs/architecture/02_seven_agent_validation_orchestration.svg)
 
-### Service Boundary
+*Each agent runs in a fixed sequence and writes a distinct, inspectable evidence artifact.*
 
-```mermaid
-flowchart TB
-    A[python main.py CLI] --> E[AgentX Pipeline Core]
-    B[streamlit_app.py Dashboard] --> E
-    C[api/main.py FastAPI] --> E
-    D[Docker Container] --> C
-    E --> F[Evidence and Governance Outputs]
-```
+### Service and Interface Architecture
 
-### Governance and Evidence Flow
+![Service and Interface Architecture](docs/architecture/03_service_interface_architecture.svg)
 
-```mermaid
-flowchart LR
-    A[Validation Run] --> B[5 Metrics Locked]
-    A --> C[8 Artifacts Present]
-    B --> D[Governance JSON Record]
-    C --> D
-    D --> E[MLflow File Store]
-    D --> F[Audit Pack MD / HTML / PDF]
-```
+*Three interchangeable entry points share one validation core and one evidence output surface.*
+
+### Evidence, Governance, and Audit-Pack Lifecycle
+
+![Evidence, Governance, and Audit-Pack Lifecycle](docs/architecture/04_evidence_governance_audit_lifecycle.svg)
+
+*Every run locks metrics, writes a governance record, and produces a portable audit trail; MLflow and audit-pack failures degrade gracefully without stopping the run.*
 
 ---
 

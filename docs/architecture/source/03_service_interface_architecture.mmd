@@ -1,0 +1,10 @@
+flowchart LR
+    subgraph EntryPoints[Entry Points]
+        A["CLI<br/>python main.py"]
+        B["Streamlit<br/>streamlit_app.py"]
+        C["FastAPI<br/>api/main.py"]
+    end
+    A --> D[AgentX Pipeline Core]
+    B --> D
+    C --> D
+    D --> E[Evidence and Governance Outputs]

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 240" width="1720" height="240" role="img" aria-labelledby="d2title d2desc">
+  <title id="d2title">Seven-Agent Validation Orchestration</title>
+  <desc id="d2desc">Seven agents run in a fixed left-to-right sequence: DataValidatorAgent, PerformanceAgent, ExplainabilityAgent, DriftMonitorAgent, FeedbackMemoryAgent, ComplianceAgent, and ReportWriterAgent. Each agent node is labelled with the exact evidence artifact file it writes.</desc>
+  <defs>
+    <marker id="d2-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a5568" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1720" height="240" fill="#f7f8fa" stroke="#d7dbe1" stroke-width="1" />
+  <rect x="0" y="0" width="1720" height="56" fill="#161b26" />
+  <text x="24" y="35" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#f5f6f8">Seven-Agent Validation Orchestration</text>
+  <rect x="0" y="56" width="1720" height="4" fill="#8c1f2b" />
+
+  <!-- Node 1: DataValidatorAgent -->
+  <rect x="40" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="135" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">DataValidator</text>
+  <text x="135" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="135" y="188" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data/validation_outputs/</text>
+  <text x="135" y="201" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data_validation.json</text>
+
+  <!-- Node 2: PerformanceAgent -->
+  <rect x="280" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="375" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Performance</text>
+  <text x="375" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="375" y="188" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data/validation_outputs/</text>
+  <text x="375" y="201" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">performance_metrics.json</text>
+
+  <!-- Node 3: ExplainabilityAgent -->
+  <rect x="520" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="615" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Explainability</text>
+  <text x="615" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="615" y="188" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data/validation_outputs/</text>
+  <text x="615" y="201" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">shap_summary.png</text>
+
+  <!-- Node 4: DriftMonitorAgent -->
+  <rect x="760" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="855" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">DriftMonitor</text>
+  <text x="855" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="855" y="188" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data/validation_outputs/</text>
+  <text x="855" y="201" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">drift_report.json</text>
+
+  <!-- Node 5: FeedbackMemoryAgent -->
+  <rect x="1000" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="1095" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">FeedbackMemory</text>
+  <text x="1095" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="1095" y="194" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data/model_memory/</text>
+
+  <!-- Node 6: ComplianceAgent -->
+  <rect x="1240" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="1335" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Compliance</text>
+  <text x="1335" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="1335" y="188" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">data/validation_outputs/</text>
+  <text x="1335" y="201" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">last_compliance.json</text>
+
+  <!-- Node 7: ReportWriterAgent -->
+  <rect x="1480" y="100" width="190" height="70" rx="6" fill="#ffffff" stroke="#4a5568" stroke-width="1.5" />
+  <text x="1575" y="130" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">ReportWriter</text>
+  <text x="1575" y="150" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1f2430">Agent</text>
+  <text x="1575" y="188" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">reports/</text>
+  <text x="1575" y="201" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="10" fill="#5b6370">validation_report.md</text>
+
+  <!-- Sequential arrows -->
+  <line x1="230" y1="135" x2="276" y2="135" stroke="#4a5568" stroke-width="2" marker-end="url(#d2-arrow)" />
+  <line x1="470" y1="135" x2="516" y2="135" stroke="#4a5568" stroke-width="2" marker-end="url(#d2-arrow)" />
+  <line x1="710" y1="135" x2="756" y2="135" stroke="#4a5568" stroke-width="2" marker-end="url(#d2-arrow)" />
+  <line x1="950" y1="135" x2="996" y2="135" stroke="#4a5568" stroke-width="2" marker-end="url(#d2-arrow)" />
+  <line x1="1190" y1="135" x2="1236" y2="135" stroke="#4a5568" stroke-width="2" marker-end="url(#d2-arrow)" />
+  <line x1="1430" y1="135" x2="1476" y2="135" stroke="#4a5568" stroke-width="2" marker-end="url(#d2-arrow)" />
+</svg>

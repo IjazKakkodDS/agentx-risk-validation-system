@@ -23,7 +23,7 @@ The model pipeline inconsistency (GAP-004) has been resolved. Verified metrics a
 
 **About the system:**
 - "AgentX is a multi-agent autonomous risk model validation system built in Python."
-- "AgentX includes six specialized agents: Data Validation, Model Performance, Explainability, Compliance, Drift Detection, and Feedback Memory."
+- "AgentX includes seven specialized agents: Data Validation, Model Performance, Explainability, Drift Detection, Feedback Memory, Compliance, and Report Writer."
 - "The system validates credit risk models against the LendingClub public dataset (5,000 rows, 2007-2018)."
 - "AgentX integrates SHAP for model explainability, producing feature importance vectors and summary plots."
 - "AgentX uses FAISS vector memory to store SHAP fingerprints and retrieve historically similar models by cosine similarity."

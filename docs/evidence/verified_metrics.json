@@ -1,6 +1,6 @@
 {
   "dataset": "LendingClub public loan data (2007-2018Q4 sample)",
-  "source_file": "C:\\Users\\ijazk\\OneDrive\\Desktop\\D - Maddy_AI_Architect\\J - GitHub Master Portfolio\\ML_AI_Projects\\AgentX_Risk_Validator\\data\\raw_data\\lending_club_clean_sample.csv",
+  "source_file": "data/raw_data/lending_club_clean_sample.csv",
   "total_rows": 5000,
   "rows_after_preprocessing": 5000,
   "feature_count": 12,

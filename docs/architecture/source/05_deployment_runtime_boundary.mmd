@@ -1,7 +1,7 @@
 flowchart LR
-    subgraph Runtime[Local / Containerized Runtime]
-        A[Source Code] --> B["Docker Image<br/>python:3.11-slim"]
-        B --> C["Running Container<br/>port 8000"]
-        C --> D[Local Host Access]
+    subgraph Runtime[Local / Containerized Runtime - Dockerfile]
+        A["Source Code<br/>AgentX repository"] --> B["Docker Image<br/>python:3.11-slim · gcc · g++ · libgomp1"]
+        B --> C["Running Container<br/>port 8000 · uvicorn api.main:app"]
+        C --> D["Local Host Access<br/>curl localhost:8000/health"]
     end
     D -.-> E[No hosted / production deployment]

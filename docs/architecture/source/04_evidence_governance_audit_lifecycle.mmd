@@ -1,7 +1,7 @@
 flowchart TD
-    A[Validation Run Complete] --> B[Metrics Locked]
-    A --> C[Artifacts Verified]
-    B --> D[Governance JSON Record]
+    A["Validation Run Complete - Steps 1-10<br/>data · model · agent outputs ready"] --> B["Metrics Locked - Step 11<br/>accuracy · precision · recall · f1 · roc_auc"]
+    A --> C["Artifacts Verified - Step 11<br/>8 evidence files checked"]
+    B --> D["Governance JSON Record - Step 12<br/>validation_run_id · reviewer_status · risk_flags"]
     C --> D
-    D -. optional, graceful degradation .-> E[MLflow File Store]
-    D -. optional, graceful degradation .-> F["Audit Pack: MD / HTML / PDF"]
+    D -. "optional, graceful degradation - Steps 13-14" .-> E["MLflow File Store<br/>5 metrics · 8 params · agentx_risk_validation"]
+    D -. "optional, graceful degradation - Steps 13-14" .-> F["Audit Pack<br/>MD · HTML · PDF · JSON context"]

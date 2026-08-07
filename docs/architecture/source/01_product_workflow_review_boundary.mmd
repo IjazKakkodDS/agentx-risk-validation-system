@@ -1,7 +1,9 @@
 flowchart LR
-    A[Data and Model Artifacts] --> B[AgentX Validation Workflow]
-    B --> C[Evidence Outputs]
+    subgraph AgentX Validation
+        A["Data and Model Artifacts<br/>LendingClub · 5,000 rows · 12 features"] --> B["AgentX Validation Workflow<br/>7-agent sequential pipeline"]
+        B --> C["Evidence Outputs<br/>Governance · metrics · audit pack"]
+    end
     C -. pending_review .-> D
-    subgraph Human Authority Zone
-        D[Human Reviewer / Governance Review]
+    subgraph Human Authority Zone - STATUS PENDING_REVIEW
+        D["Human Reviewer / Governance Review<br/>risk_flags · reviewer_notes"]
     end

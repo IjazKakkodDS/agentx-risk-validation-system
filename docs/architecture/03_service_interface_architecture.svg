@@ -1,37 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 364" width="1040" height="364" role="img" aria-labelledby="d3title d3desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 428" width="1040" height="428" role="img" aria-labelledby="d3title d3desc">
   <title id="d3title">Service and Interface Architecture</title>
-  <desc id="d3desc">Three entry points, CLI, Streamlit, and FastAPI, converge into one AgentX Pipeline Core, which produces Evidence and Governance Outputs. Docker is covered separately in the deployment and runtime boundary diagram.</desc>
+  <desc id="d3desc">Three entry points, CLI, Streamlit, and FastAPI, converge into the AgentX Pipeline Core, which is composed of a shared Data and Model Layer feeding the Seven Validation Agents, producing Evidence and Governance Outputs. Docker is covered separately in the deployment and runtime boundary diagram.</desc>
   <defs>
     <marker id="d3-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <polygon points="0,0 10,5 0,10" fill="#475569"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="1040" height="364" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="0" y="0" width="1040" height="428" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
   <rect x="0" y="0" width="1040" height="46" rx="8" fill="#0F172A"/>
   <rect x="0" y="34" width="1040" height="12" fill="#0F172A"/>
   <rect x="0" y="46" width="1040" height="3" fill="#8C1F2B"/>
   <text x="520" y="30" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="19" font-weight="700" fill="#F1F5F9">Service and Interface Architecture</text>
   <rect x="10" y="58" width="1020" height="106" rx="4" fill="#EFF6FF"/>
   <text x="22" y="77" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#1D4ED8" letter-spacing="1.3">ENTRY POINTS</text>
-  <rect x="10" y="178" width="1020" height="78" rx="4" fill="#F1F5F9"/>
+  <rect x="10" y="178" width="1020" height="142" rx="4" fill="#F1F5F9"/>
   <text x="22" y="197" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1.3">PIPELINE CORE</text>
-  <rect x="10" y="270" width="1020" height="78" rx="4" fill="#F0FDF4"/>
-  <text x="22" y="289" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#15803D" letter-spacing="1.3">EVIDENCE OUTPUT</text>
+  <rect x="10" y="334" width="1020" height="78" rx="4" fill="#F0FDF4"/>
+  <text x="22" y="353" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#15803D" letter-spacing="1.3">EVIDENCE OUTPUT</text>
   <rect x="40" y="88" width="280" height="64" rx="6" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.5"/>
   <text x="180" y="116" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#1E40AF">CLI</text>
-  <text x="180" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#1E40AF" opacity="0.82">python main.py</text>
+  <text x="180" y="134" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#1E40AF" opacity="0.82">python main.py</text>
   <rect x="360" y="88" width="280" height="64" rx="6" fill="#DDD6FE" stroke="#7C3AED" stroke-width="1.5"/>
   <text x="500" y="116" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#3B0764">Streamlit</text>
-  <text x="500" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#3B0764" opacity="0.82">streamlit_app.py</text>
+  <text x="500" y="134" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#3B0764" opacity="0.82">streamlit_app.py</text>
   <rect x="680" y="88" width="280" height="64" rx="6" fill="#A5F3FC" stroke="#0891B2" stroke-width="1.5"/>
-  <text x="820" y="116" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#083344">FastAPI</text>
-  <text x="820" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#083344" opacity="0.82">api/main.py</text>
-  <rect x="60" y="202" width="920" height="48" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/>
-  <text x="520" y="231" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#0F172A">AgentX Pipeline Core</text>
-  <rect x="60" y="294" width="920" height="48" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
-  <text x="520" y="323" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#064E3B">Evidence and Governance Outputs</text>
-  <path d="M180,152 C180,170 520,188 520,202" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d3-ah)"/>
-  <path d="M500,152 C500,170 520,188 520,202" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d3-ah)"/>
-  <path d="M820,152 C820,170 520,188 520,202" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d3-ah)"/>
-  <line x1="520" y1="250" x2="520" y2="294" stroke="#475569" stroke-width="2" marker-end="url(#d3-ah)"/>
+  <text x="820" y="110" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#083344">FastAPI</text>
+  <text x="820" y="128" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#083344" opacity="0.82">api/main.py</text>
+  <text x="820" y="143" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="9.5" fill="#083344" opacity="0.75">5 read-only · 1 triggers run</text>
+  <rect x="60" y="208" width="920" height="44" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/>
+  <text x="520" y="226" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#0F172A">Data and Model Layer</text>
+  <text x="520" y="243" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#0F172A" opacity="0.82">utils/load_data.py · utils/model_utils.py</text>
+  <rect x="60" y="264" width="920" height="44" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/>
+  <text x="520" y="282" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#0F172A">Seven Validation Agents</text>
+  <text x="520" y="299" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#0F172A" opacity="0.82">agents/*.py  —  see Diagram 2</text>
+  <line x1="520" y1="252" x2="520" y2="264" stroke="#475569" stroke-width="2" marker-end="url(#d3-ah)"/>
+  <rect x="60" y="358" width="920" height="48" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
+  <text x="520" y="387" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#064E3B">Evidence and Governance Outputs</text>
+  <path d="M180,152 C180,170 520,194 520,208" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d3-ah)"/>
+  <path d="M500,152 C500,170 520,194 520,208" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d3-ah)"/>
+  <path d="M820,152 C820,170 520,194 520,208" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d3-ah)"/>
+  <line x1="520" y1="308" x2="520" y2="358" stroke="#475569" stroke-width="2" marker-end="url(#d3-ah)"/>
 </svg>

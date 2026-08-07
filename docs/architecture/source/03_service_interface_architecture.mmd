@@ -1,10 +1,15 @@
-flowchart LR
+flowchart TB
     subgraph EntryPoints[Entry Points]
         A["CLI<br/>python main.py"]
         B["Streamlit<br/>streamlit_app.py"]
-        C["FastAPI<br/>api/main.py"]
+        C["FastAPI<br/>api/main.py - 5 read-only, 1 triggers run"]
     end
-    A --> D[AgentX Pipeline Core]
+    subgraph PipelineCore[Pipeline Core]
+        D["Data and Model Layer<br/>utils/load_data.py · utils/model_utils.py"]
+        E["Seven Validation Agents<br/>agents/*.py"]
+        D --> E
+    end
+    A --> D
     B --> D
     C --> D
-    D --> E[Evidence and Governance Outputs]
+    E --> F[Evidence and Governance Outputs]

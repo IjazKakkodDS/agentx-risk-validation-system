@@ -1,49 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1734 206" width="1734" height="206" role="img" aria-labelledby="d2title d2desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1734 214" width="1734" height="214" role="img" aria-labelledby="d2title d2desc">
   <title id="d2title">Seven-Agent Validation Orchestration</title>
-  <desc id="d2desc">Seven agents run in a fixed sequence: DataValidatorAgent, PerformanceAgent, ExplainabilityAgent, DriftMonitorAgent, FeedbackMemoryAgent, ComplianceAgent, and ReportWriterAgent. Each node is labelled with the exact evidence artifact file it writes.</desc>
+  <desc id="d2desc">Seven agents run in a fixed sequence, sharing one validation run context: DataValidatorAgent, PerformanceAgent, ExplainabilityAgent, DriftMonitorAgent, FeedbackMemoryAgent, ComplianceAgent, and ReportWriterAgent. Each node is labelled with the exact evidence artifact file it writes, and ReportWriterAgent is marked as the run's final evidence outcome.</desc>
   <defs>
     <marker id="d2-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <polygon points="0,0 10,5 0,10" fill="#475569"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="1734" height="206" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="0" y="0" width="1734" height="214" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
   <rect x="0" y="0" width="1734" height="46" rx="8" fill="#0F172A"/>
   <rect x="0" y="34" width="1734" height="12" fill="#0F172A"/>
   <rect x="0" y="46" width="1734" height="3" fill="#8C1F2B"/>
   <text x="867" y="30" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="19" font-weight="700" fill="#F1F5F9">Seven-Agent Validation Orchestration</text>
-  <rect x="10" y="58" width="1714" height="132" rx="4" fill="#F1F5F9"/>
-  <text x="22" y="77" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1.3">SEVEN-AGENT SEQUENCE</text>
-  <rect x="30" y="88" width="210" height="74" rx="6" fill="#BBF7D0" stroke="#059669" stroke-width="1.5"/>
-  <text x="135" y="115" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#064E3B">DataValidatorAgent</text>
-  <text x="135" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#064E3B" opacity="0.82">data/validation_outputs/</text>
-  <text x="135" y="145" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#064E3B" opacity="0.82">data_validation.json</text>
-  <rect x="274" y="88" width="210" height="74" rx="6" fill="#FECACA" stroke="#DC2626" stroke-width="1.5"/>
-  <text x="379" y="115" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#7F1D1D">PerformanceAgent</text>
-  <text x="379" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#7F1D1D" opacity="0.82">data/validation_outputs/</text>
-  <text x="379" y="145" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#7F1D1D" opacity="0.82">performance_metrics.json</text>
-  <rect x="518" y="88" width="210" height="74" rx="6" fill="#E9D5FF" stroke="#9333EA" stroke-width="1.5"/>
-  <text x="623" y="115" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#3B0764">ExplainabilityAgent</text>
-  <text x="623" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#3B0764" opacity="0.82">data/validation_outputs/</text>
-  <text x="623" y="145" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#3B0764" opacity="0.82">shap_summary.png</text>
-  <rect x="762" y="88" width="210" height="74" rx="6" fill="#FED7AA" stroke="#EA580C" stroke-width="1.5"/>
-  <text x="867" y="115" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#7C2D12">DriftMonitorAgent</text>
-  <text x="867" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#7C2D12" opacity="0.82">data/validation_outputs/</text>
-  <text x="867" y="145" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#7C2D12" opacity="0.82">drift_report.json</text>
-  <rect x="1006" y="88" width="210" height="74" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
-  <text x="1111" y="121" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#14532D">FeedbackMemoryAgent</text>
-  <text x="1111" y="138" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10.5" fill="#14532D" opacity="0.82">data/model_memory/</text>
-  <rect x="1250" y="88" width="210" height="74" rx="6" fill="#FBCFE8" stroke="#DB2777" stroke-width="1.5"/>
-  <text x="1355" y="115" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#831843">ComplianceAgent</text>
-  <text x="1355" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#831843" opacity="0.82">data/validation_outputs/</text>
-  <text x="1355" y="145" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#831843" opacity="0.82">last_compliance.json</text>
-  <rect x="1494" y="88" width="210" height="74" rx="6" fill="#A5F3FC" stroke="#0891B2" stroke-width="1.5"/>
-  <text x="1599" y="115" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#083344">ReportWriterAgent</text>
-  <text x="1599" y="133" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#083344" opacity="0.82">reports/</text>
-  <text x="1599" y="145" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="10" fill="#083344" opacity="0.82">validation_report.md</text>
-  <line x1="244" y1="125" x2="270" y2="125" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
-  <line x1="488" y1="125" x2="514" y2="125" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
-  <line x1="732" y1="125" x2="758" y2="125" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
-  <line x1="976" y1="125" x2="1002" y2="125" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
-  <line x1="1220" y1="125" x2="1246" y2="125" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
-  <line x1="1464" y1="125" x2="1490" y2="125" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
+  <rect x="10" y="58" width="1714" height="140" rx="4" fill="#F1F5F9"/>
+  <text x="22" y="77" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1.3">SEVEN-AGENT EXECUTION SEQUENCE</text>
+  <rect x="762" y="64" width="210" height="20" rx="10" fill="#334155"/>
+  <text x="867" y="78" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#FFFFFF">SHARED VALIDATION RUN CONTEXT</text>
+  <rect x="30" y="96" width="210" height="82" rx="6" fill="#BBF7D0" stroke="#059669" stroke-width="1.5"/>
+  <text x="135" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#064E3B">DataValidatorAgent</text>
+  <line x1="46" y1="144" x2="224" y2="144" stroke="#059669" stroke-width="1" opacity="0.4"/>
+  <text x="135" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#064E3B" opacity="0.82">data/validation_outputs/</text>
+  <text x="135" y="172" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#064E3B" opacity="0.82">data_validation.json</text>
+  <rect x="274" y="96" width="210" height="82" rx="6" fill="#FECACA" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="379" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#7F1D1D">PerformanceAgent</text>
+  <line x1="290" y1="144" x2="468" y2="144" stroke="#DC2626" stroke-width="1" opacity="0.4"/>
+  <text x="379" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#7F1D1D" opacity="0.82">data/validation_outputs/</text>
+  <text x="379" y="172" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#7F1D1D" opacity="0.82">performance_metrics.json</text>
+  <rect x="518" y="96" width="210" height="82" rx="6" fill="#E9D5FF" stroke="#9333EA" stroke-width="1.5"/>
+  <text x="623" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#3B0764">ExplainabilityAgent</text>
+  <line x1="534" y1="144" x2="712" y2="144" stroke="#9333EA" stroke-width="1" opacity="0.4"/>
+  <text x="623" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#3B0764" opacity="0.82">data/validation_outputs/</text>
+  <text x="623" y="172" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#3B0764" opacity="0.82">shap_summary.png</text>
+  <rect x="762" y="96" width="210" height="82" rx="6" fill="#FED7AA" stroke="#EA580C" stroke-width="1.5"/>
+  <text x="867" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#7C2D12">DriftMonitorAgent</text>
+  <line x1="778" y1="144" x2="956" y2="144" stroke="#EA580C" stroke-width="1" opacity="0.4"/>
+  <text x="867" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#7C2D12" opacity="0.82">data/validation_outputs/</text>
+  <text x="867" y="172" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#7C2D12" opacity="0.82">drift_report.json</text>
+  <rect x="1006" y="96" width="210" height="82" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
+  <text x="1111" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#14532D">FeedbackMemoryAgent</text>
+  <line x1="1022" y1="144" x2="1200" y2="144" stroke="#16A34A" stroke-width="1" opacity="0.4"/>
+  <text x="1111" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#14532D" opacity="0.82">data/model_memory/</text>
+  <rect x="1250" y="96" width="210" height="82" rx="6" fill="#FBCFE8" stroke="#DB2777" stroke-width="1.5"/>
+  <text x="1355" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#831843">ComplianceAgent</text>
+  <line x1="1266" y1="144" x2="1444" y2="144" stroke="#DB2777" stroke-width="1" opacity="0.4"/>
+  <text x="1355" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#831843" opacity="0.82">data/validation_outputs/</text>
+  <text x="1355" y="172" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#831843" opacity="0.82">last_compliance.json</text>
+  <rect x="1494" y="96" width="210" height="82" rx="6" fill="#A5F3FC" stroke="#0891B2" stroke-width="1.5"/>
+  <text x="1599" y="124" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="13.5" font-weight="700" fill="#083344">ReportWriterAgent</text>
+  <line x1="1510" y1="144" x2="1688" y2="144" stroke="#0891B2" stroke-width="1" opacity="0.4"/>
+  <text x="1599" y="159" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#083344" opacity="0.82">reports/</text>
+  <text x="1599" y="172" text-anchor="middle" font-family="Consolas,Menlo,monospace" font-size="9.5" fill="#083344" opacity="0.82">validation_report.md</text>
+  <rect x="1499" y="70" width="200" height="20" rx="10" fill="#0F172A"/>
+  <text x="1599" y="84" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#FFFFFF">FINAL EVIDENCE OUTCOME</text>
+  <line x1="244" y1="137" x2="270" y2="137" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
+  <line x1="488" y1="137" x2="514" y2="137" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
+  <line x1="732" y1="137" x2="758" y2="137" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
+  <line x1="976" y1="137" x2="1002" y2="137" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
+  <line x1="1220" y1="137" x2="1246" y2="137" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
+  <line x1="1464" y1="137" x2="1490" y2="137" stroke="#475569" stroke-width="2" marker-end="url(#d2-ah)"/>
 </svg>

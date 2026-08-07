@@ -1,45 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 516" width="860" height="516" role="img" aria-labelledby="d4title d4desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 534" width="860" height="534" role="img" aria-labelledby="d4title d4desc">
   <title id="d4title">Evidence, Governance, and Audit-Pack Lifecycle</title>
-  <desc id="d4desc">On validation run completion, metrics are locked and artifacts are verified, then converge into a governance JSON record. The record fans out to an MLflow file store and an audit pack, both optional and failure-bounded; they degrade gracefully without stopping the run.</desc>
+  <desc id="d4desc">On validation run completion (main.py Steps 1-10), metrics are locked and artifacts are verified (Step 11), then converge into a governance JSON record (Step 12) carrying validation_run_id, reviewer_status, and risk_flags. The record fans out to an MLflow file store and an audit pack (Steps 13-14), both optional and failure-bounded; they degrade gracefully without stopping the run.</desc>
   <defs>
     <marker id="d4-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <polygon points="0,0 10,5 0,10" fill="#475569"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="860" height="516" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="0" y="0" width="860" height="534" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
   <rect x="0" y="0" width="860" height="46" rx="8" fill="#0F172A"/>
   <rect x="0" y="34" width="860" height="12" fill="#0F172A"/>
   <rect x="0" y="46" width="860" height="3" fill="#8C1F2B"/>
   <text x="430" y="30" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="19" font-weight="700" fill="#F1F5F9">Evidence, Governance, and Audit-Pack Lifecycle</text>
-  <rect x="10" y="58" width="840" height="96" rx="4" fill="#EFF6FF"/>
+  <rect x="10" y="58" width="840" height="102" rx="4" fill="#EFF6FF"/>
   <text x="22" y="77" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#1D4ED8" letter-spacing="1.3">VALIDATION COMPLETE</text>
-  <rect x="10" y="166" width="840" height="96" rx="4" fill="#FFF1F2"/>
-  <text x="22" y="185" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#BE123C" letter-spacing="1.3">MANDATORY EVIDENCE</text>
-  <rect x="10" y="274" width="840" height="96" rx="4" fill="#F1F5F9"/>
-  <text x="22" y="293" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1.3">GOVERNANCE RECORD</text>
-  <rect x="10" y="382" width="840" height="118" rx="4" fill="#FFFBEB"/>
-  <text x="22" y="401" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#B45309" letter-spacing="1.3">OPTIONAL OUTPUTS</text>
-  <rect x="280" y="88" width="300" height="58" rx="6" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.5"/>
-  <text x="430" y="122" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#1E40AF">Validation Run Complete</text>
-  <rect x="60" y="196" width="320" height="58" rx="6" fill="#FECACA" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="838" y="77" text-anchor="end" font-family="Consolas,Menlo,monospace" font-size="9.5" font-weight="700" fill="#1D4ED8" opacity="0.85">STEPS 1–10</text>
+  <rect x="10" y="172" width="840" height="102" rx="4" fill="#FFF1F2"/>
+  <text x="22" y="191" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#BE123C" letter-spacing="1.3">MANDATORY EVIDENCE</text>
+  <text x="838" y="191" text-anchor="end" font-family="Consolas,Menlo,monospace" font-size="9.5" font-weight="700" fill="#BE123C" opacity="0.85">STEP 11</text>
+  <rect x="10" y="286" width="840" height="102" rx="4" fill="#F1F5F9"/>
+  <text x="22" y="305" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1.3">GOVERNANCE RECORD</text>
+  <text x="838" y="305" text-anchor="end" font-family="Consolas,Menlo,monospace" font-size="9.5" font-weight="700" fill="#475569" opacity="0.85">STEP 12</text>
+  <rect x="10" y="400" width="840" height="118" rx="4" fill="#FFFBEB"/>
+  <text x="22" y="419" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" fill="#B45309" letter-spacing="1.3">OPTIONAL OUTPUTS</text>
+  <text x="838" y="419" text-anchor="end" font-family="Consolas,Menlo,monospace" font-size="9.5" font-weight="700" fill="#B45309" opacity="0.85">STEPS 13–14</text>
+  <rect x="270" y="88" width="320" height="64" rx="6" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.5"/>
+  <text x="430" y="116" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#1E40AF">Validation Run Complete</text>
+  <text x="430" y="133" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#1E40AF" opacity="0.82">data · model · agent outputs ready</text>
+  <rect x="50" y="202" width="340" height="64" rx="6" fill="#FECACA" stroke="#DC2626" stroke-width="1.5"/>
   <text x="220" y="230" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#7F1D1D">Metrics Locked</text>
-  <rect x="480" y="196" width="320" height="58" rx="6" fill="#E9D5FF" stroke="#9333EA" stroke-width="1.5"/>
+  <text x="220" y="247" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#7F1D1D" opacity="0.82">accuracy · precision · recall · f1 · roc_auc</text>
+  <rect x="470" y="202" width="340" height="64" rx="6" fill="#E9D5FF" stroke="#9333EA" stroke-width="1.5"/>
   <text x="640" y="230" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#3B0764">Artifacts Verified</text>
-  <rect x="250" y="304" width="360" height="58" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/>
-  <text x="430" y="338" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#0F172A">Governance JSON Record</text>
-  <rect x="60" y="416" width="320" height="70" rx="6" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
-  <text x="220" y="456" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#6B7280">MLflow File Store</text>
-  <rect x="480" y="416" width="320" height="70" rx="6" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
-  <text x="640" y="447" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#6B7280">Audit Pack</text>
-  <text x="640" y="464" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#6B7280" opacity="0.82">MD  ·  HTML  ·  PDF</text>
-  <rect x="302" y="406" width="78" height="20" rx="10" fill="#9CA3AF"/>
-  <text x="341" y="420" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#FFFFFF">OPTIONAL</text>
-  <rect x="722" y="406" width="78" height="20" rx="10" fill="#9CA3AF"/>
-  <text x="761" y="420" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#FFFFFF">OPTIONAL</text>
-  <path d="M430,146 C430,160 220,182 220,196" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
-  <path d="M430,146 C430,160 640,182 640,196" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
-  <path d="M220,254 C220,268 430,290 430,304" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
-  <path d="M640,254 C640,268 430,290 430,304" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
-  <path d="M430,362 C430,376 220,402 220,416" stroke="#475569" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#d4-ah)"/>
-  <path d="M430,362 C430,376 640,402 640,416" stroke="#475569" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#d4-ah)"/>
+  <text x="640" y="247" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#3B0764" opacity="0.82">8 evidence files checked</text>
+  <rect x="200" y="316" width="460" height="64" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/>
+  <text x="430" y="344" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#0F172A">Governance JSON Record</text>
+  <text x="430" y="361" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#0F172A" opacity="0.82">validation_run_id · reviewer_status · risk_flags</text>
+  <rect x="60" y="434" width="320" height="74" rx="6" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="220" y="467" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#6B7280">MLflow File Store</text>
+  <text x="220" y="484" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#6B7280" opacity="0.82">5 metrics · 8 params · agentx_risk_validation</text>
+  <rect x="480" y="434" width="320" height="74" rx="6" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="640" y="467" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#6B7280">Audit Pack</text>
+  <text x="640" y="484" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10.5" fill="#6B7280" opacity="0.82">MD  ·  HTML  ·  PDF  ·  JSON context</text>
+  <rect x="302" y="424" width="78" height="20" rx="10" fill="#9CA3AF"/>
+  <text x="341" y="438" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#FFFFFF">OPTIONAL</text>
+  <rect x="722" y="424" width="78" height="20" rx="10" fill="#9CA3AF"/>
+  <text x="761" y="438" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#FFFFFF">OPTIONAL</text>
+  <path d="M430,152 C430,166 220,188 220,202" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
+  <path d="M430,152 C430,166 640,188 640,202" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
+  <path d="M220,266 C220,280 430,302 430,316" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
+  <path d="M640,266 C640,280 430,302 430,316" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#d4-ah)"/>
+  <path d="M430,380 C430,394 220,420 220,434" stroke="#475569" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#d4-ah)"/>
+  <path d="M430,380 C430,394 640,420 640,434" stroke="#475569" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#d4-ah)"/>
 </svg>
